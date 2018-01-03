@@ -11,14 +11,34 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.testgdx.game.MyTestGame;
 
-import be.tarsos.dsp.*;
 
 public class AndroidLauncher extends AndroidApplication {
-	@Override
+
+    public class AndroidMusic implements MusicInterface {
+        private final MusicAPI api;
+
+        public AndroidMusic()
+        {
+            api = new MusicAPI();
+        }
+
+        public int MakeMap()
+        {
+            return api.MakeMap();
+        }
+
+        public void SetDirectory(String source) { api.MusicDirectory(source); }
+
+    }
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new MyTestGame(), config);
+
+		AndroidMusic a = new AndroidMusic();
+
+		initialize(new MyTestGame(a), config);
 
 	}
 }
