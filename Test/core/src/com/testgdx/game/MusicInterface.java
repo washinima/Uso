@@ -1,9 +1,10 @@
 package com.testgdx.game;
 
 /**
- * Created by Whisp on 02/01/2018.
+ * Created by Whisp on 03/01/2018.
  */
 
 public interface MusicInterface {
-        public int MakeMap();
+    int MakeMap();
+    void StartDirectory(String source);
 }

@@ -15,7 +15,7 @@ public class MyTestGame extends ApplicationAdapter {
 	int stateManager;
 
 	private final MusicInterface m;
-
+	private String source = "test.mp3";
 
 	public MyTestGame(MusicInterface musicInterface)
     {
@@ -36,6 +36,10 @@ public class MyTestGame extends ApplicationAdapter {
 		{
 			//0 Menu | 1 Escolher Musica | 2 Jogo | 3 Score Screen
 			case 0:
+
+				m.StartDirectory(
+                        Gdx.files.internal(source).path()
+                );
 				break;
 			case 1:
 				break;

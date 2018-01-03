@@ -27,7 +27,10 @@ public class AndroidLauncher extends AndroidApplication {
             return api.MakeMap();
         }
 
-        public void SetDirectory(String source) { api.MusicDirectory(source); }
+        public void StartDirectory(String source) {
+            api.Setup(getApplicationContext(), source);
+            api.Start();
+        }
 
     }
 

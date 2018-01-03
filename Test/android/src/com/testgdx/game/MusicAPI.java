@@ -5,11 +5,15 @@ package com.testgdx.game;
  */
 
 
+import android.content.Context;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.FileHandler;
 
 import be.tarsos.dsp.*;
+import be.tarsos.dsp.io.android.AndroidFFMPEGLocator;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.onsets.OnsetHandler;
 import be.tarsos.dsp.onsets.PercussionOnsetDetector;
@@ -19,6 +23,11 @@ public class MusicAPI
 {
     private class Hit
     {
+        public Hit(float time, int type){
+            this.time = time;
+            this.type = type;
+        }
+
         float time;
         int type;
     }
@@ -26,16 +35,23 @@ public class MusicAPI
     AudioDispatcher dispatcher;
     String directory;
 
-    Hit[] a;
+    ArrayList<Hit> list;
+
+    public void Setup(Context context, String dir)
+    {
+        new AndroidFFMPEGLocator(context);
+        MusicDirectory(dir);
+    }
 
     public void Start()
     {
-
+        list = new ArrayList<Hit>(100);
         dispatcher = AudioDispatcherFactory.fromPipe(directory, 1024,0,0);
-        a = new Hit[]
+
+        PercussionDetection();
     }
 
-    public void MusicDirectory(String dir)
+    private void MusicDirectory(String dir)
     {
         this.directory = dir;
     }
@@ -45,7 +61,9 @@ public class MusicAPI
         OnsetHandler onsetHandler = new OnsetHandler() {
             @Override
             public void handleOnset(double v, double v1) {
+                Hit a = new Hit( (float)v, 0);
 
+                list.add(a);
             }
         };
 
