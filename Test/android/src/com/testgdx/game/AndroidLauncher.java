@@ -2,7 +2,10 @@ package com.testgdx.game;
 
 import android.os.Bundle;
 import android.media.*;
+import android.util.Log;
+
 import java.io.*;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.audio.AudioRecorder;
@@ -10,6 +13,8 @@ import com.badlogic.gdx.audio.AudioRecorder;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.testgdx.game.MyTestGame;
+
+import be.tarsos.dsp.io.android.AndroidFFMPEGLocator;
 
 
 public class AndroidLauncher extends AndroidApplication {
@@ -27,11 +32,28 @@ public class AndroidLauncher extends AndroidApplication {
             return api.MakeMap();
         }
 
-        public void StartDirectory(String source) {
+        public void Setup(String source) {
             api.Setup(getApplicationContext(), source);
             api.Start();
         }
 
+        public void Start()
+        {
+            api.Run();
+        }
+
+
+        public boolean isStopped()
+        {
+            return api.dispatcher.isStopped();
+        }
+
+        public void Log()
+        {
+            float a = api.dispatcher.secondsProcessed();
+            Log.d("List",api.list.toString());
+            Log.d("Time", Float.toString(a));
+        }
     }
 
     @Override
@@ -39,9 +61,9 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-		AndroidMusic a = new AndroidMusic();
+		AndroidMusic androidMusic = new AndroidMusic();
 
-		initialize(new MyTestGame(a), config);
+		initialize(new MyTestGame(androidMusic), config);
 
 	}
 }

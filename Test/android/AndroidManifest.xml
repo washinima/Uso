@@ -3,8 +3,8 @@
     package="com.testgdx.game">
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="26" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

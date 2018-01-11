@@ -27,6 +27,12 @@ public class MyTestGame extends ApplicationAdapter {
     public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+
+		m.Setup(
+                Gdx.files.internal(source).path()
+        );
+
+		m.Start();
 	}
 
 	@Override
@@ -36,12 +42,13 @@ public class MyTestGame extends ApplicationAdapter {
 		{
 			//0 Menu | 1 Escolher Musica | 2 Jogo | 3 Score Screen
 			case 0:
-
-				m.StartDirectory(
-                        Gdx.files.internal(source).path()
-                );
+                if(m.isStopped())
+                {
+                    m.Log();
+                }
 				break;
 			case 1:
+
 				break;
 			case 2:
 				break;
