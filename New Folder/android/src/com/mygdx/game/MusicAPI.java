@@ -30,7 +30,7 @@ public class MusicAPI
     AudioDispatcher dispatcher;
     String directory;
     Thread thread;
-    int sampleRate = 22050, bufferSize = 500, bufferOverlap = 0;
+    int sampleRate = 22050, bufferSize = 1024, bufferOverlap = 0;
 
     ArrayList<Hittable> list;
 
@@ -68,11 +68,10 @@ public class MusicAPI
                     @Override
                     public void handleOnset(double v, double v1) {
                         Hittable a = new Hittable( (float)v, 0);
-                        Log.d("Time", Double.toString(v));
                         list.add(a);
                     }
                 },
-                50, 5);
+                60, 5);
         dispatcher.addAudioProcessor(a);
 
         thread = new Thread(dispatcher);

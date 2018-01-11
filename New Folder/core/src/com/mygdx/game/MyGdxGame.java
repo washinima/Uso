@@ -29,7 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
     Random generator;
     ArrayList<Hittable> map;
 
-    float diff = 500;
+    float diff = 1f;
 
 
     private final MusicInterface m;
@@ -120,8 +120,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
         for(int i = 0; i <= map.size() - 1; i++)
         {
+
+            float pos = music.getPosition();
             if(
-                    compareTime(map.get(i).getTime(), music.getPosition())
+                    compareTime(map.get(i).getTime(), pos)
                     )
             {
                 map.get(i).draw(batch);
@@ -130,7 +132,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         /*for(int i = map.size() - 1; i >= 0; i--)
         {
-            if( map.get(i).getTime() < music.getPosition() / 1000)
+            if( map.get(i).getTime() > music.getPosition())
             {
                 map.remove(i);
             }
@@ -140,9 +142,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private boolean compareTime(float hitTime, float musicTime)
     {
-        float hiTime2 = hitTime * 1000;
-
-        if( hiTime2 + diff >= musicTime )
+        if( hitTime >= musicTime - diff && hitTime < musicTime)
         {
             return true;
         }

@@ -31,7 +31,7 @@ public class Hittable extends Actor
         _time = time;
         _type = type;
 
-        _size = 50;
+        _size = 100;
     }
 
     public void setPosition(int x, int y)
