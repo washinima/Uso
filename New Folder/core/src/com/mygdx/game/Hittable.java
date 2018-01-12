@@ -23,7 +23,6 @@ public class Hittable extends Actor
     public int getSize() {return _size;}
 
 
-
     public Hittable(float time, int type){
         shapeRenderer = new ShapeRenderer();
         projectionMatrixSet = false;

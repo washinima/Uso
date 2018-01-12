@@ -35,19 +35,28 @@ public class MyGdxGame extends ApplicationAdapter {
     private final MusicInterface m;
     private String source = "test.mp3";
 
+    private MenuState menu;
+    public int WIDTH, HEIGHT;
+
     public MyGdxGame(MusicInterface musicInterface)
     {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 0;
+        this.stateManager = 3;
+
     }
 
     @Override
     public void create () {
         batch = new SpriteBatch();
 
-        m.showPicker();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+
+        menu = new MenuState(WIDTH,HEIGHT);
+
+        //m.showPicker();
     }
 
     @Override
@@ -77,6 +86,9 @@ public class MyGdxGame extends ApplicationAdapter {
             case 2:
                 break;
             case 3:
+                batch.begin();
+                menu.render(batch);
+                batch.end();
                 break;
         }
 
