@@ -32,11 +32,11 @@ public class MenuState {
         optionsBtn = new Texture("Options_Button.png");
         exitBtn = new Texture("Exit_Button.png");
 
-        playBttn = new ImageButton(playBtn,skin);
+       // playBttn = new ImageButton(playBtn,skin);
     }
 
     public void handleInput(){
-        if()
+     //   if()
     }
 
     public void render(SpriteBatch spriteBatch){
