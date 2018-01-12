@@ -32,11 +32,13 @@ public class MenuState {
         optionsBtn = new Texture("Options_Button.png");
         exitBtn = new Texture("Exit_Button.png");
 
-       // playBttn = new ImageButton(playBtn,skin);
+        //ESTA COMENTADO PORQUE ESTAVA COM ERRO ( skin nao existe )
+        //playBttn = new ImageButton(playBtn,skin);
     }
 
     public void handleInput(){
-     //   if()
+        //ESTA COMENTADO PORQUE ESTAVA COM ERRO (obviamente neste caso)
+        //if()
     }
 
     public void render(SpriteBatch spriteBatch){
