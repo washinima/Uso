@@ -32,6 +32,7 @@ public class FlowGenerator {
     private int indexColor;
     private int colorCycle;
     private int numCombo;
+    private CharSequence num;
 
     private float timeBetweenJump = 0.1f;
 
@@ -52,6 +53,7 @@ public class FlowGenerator {
         currentColor = colors.get(indexColor);
         colorCycle = 1;
         numCombo = 1;
+        num = Integer.toString(numCombo);
     }
 
     public ArrayList<Circle> GenerateCombo(double time)
@@ -59,7 +61,9 @@ public class FlowGenerator {
         colorCycle++;
         if (colorCycle > 4)
             CycleColors();
+        num = Integer.toString(numCombo);
         numCombo++;
+
         this.time = time;
         circles = new ArrayList<Circle>();
         int opt = random.nextInt(1);
@@ -83,17 +87,17 @@ public class FlowGenerator {
     private void SingleCircle(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition();
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
     }
 
     private void TripleJump(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition();
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
         pos = CalculatePosition();
-        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor));
+        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
         pos = CalculatePosition();
-        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, currentColor));
+        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
     }
 
     private void TripleStream(ArrayList<Circle> combo)
@@ -109,7 +113,7 @@ public class FlowGenerator {
             double angle = random.nextInt(359);
             pos.X = (int)(lastX + distance * (float)Math.cos(angle));
             pos.Y = (int)(lastY + distance * -(float)(Math.sin(angle)));
-        } while ((pos.X > Gdx.graphics.getWidth() || pos.X < 0) || (pos.Y > Gdx.graphics.getHeight() || pos.Y < 0));
+        } while ((pos.X > Gdx.graphics.getWidth() - circleSize || pos.X < 0) || (pos.Y > Gdx.graphics.getHeight() - circleSize || pos.Y < 0));
 
         lastX = pos.X;
         lastY = pos.Y;

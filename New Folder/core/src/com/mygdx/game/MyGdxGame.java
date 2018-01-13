@@ -16,6 +16,7 @@ public class MyGdxGame extends ApplicationAdapter {
     Music music;
     Random generator;
     ArrayList<Circle> map;
+
     float diff = 1f;
 
     private final MusicInterface m;
@@ -29,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 3;
+        this.stateManager = 0;
 
     }
 
@@ -37,13 +38,13 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
 
-        WIDTH = Gdx.graphics.getWidth();
+        /*WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
         menu = new MenuState(WIDTH,HEIGHT);
         menu.create();*/
 
-        //m.showPicker();
+        m.showPicker();
     }
 
     @Override
@@ -64,6 +65,7 @@ public class MyGdxGame extends ApplicationAdapter {
             case 1:
                 Gdx.gl.glClearColor(0.1f, 0.2f, 0.7f, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
                 batch.begin();
                 ActualGame();
@@ -114,7 +116,7 @@ public class MyGdxGame extends ApplicationAdapter {
             playingMusic = true;
         }
 
-        for(int i = 0; i <= map.size() - 1; i++)
+        for(int i = map.size() - 1; i >= 0; i--)
         {
 
             float pos = music.getPosition();
@@ -133,22 +135,17 @@ public class MyGdxGame extends ApplicationAdapter {
                 {
                     map.get(i).CheckIfClicked(Gdx.input.getX(2), Gdx.input.getY(2));
                 }
-                if( map.get(i).getTime() > music.getPosition() || !map.get(i).IsActive())
+                if( map.get(i).getTime() > music.getPosition())
                 {
                     map.get(i).SetActive(false);
+                }
+                if(!map.get(i).IsActive())
+                {
+                    map.remove(i);
                 }
                 map.get(i).draw(batch);
             }
         }
-
-        for(int i = map.size() - 1; i >= 0; i--)
-        {
-            if(!map.get(i).IsActive())
-            {
-                map.remove(i);
-            }
-        }
-
     }
 
     private boolean compareTime(float hitTime, float musicTime)
