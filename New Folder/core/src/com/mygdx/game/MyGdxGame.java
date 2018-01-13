@@ -50,11 +50,11 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
 
-        /*WIDTH = Gdx.graphics.getWidth();
+        WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
-        menu = new MenuState(WIDTH,HEIGHT);
-        menu.create();
+        /*menu = new MenuState(WIDTH,HEIGHT);
+        menu.create();*/
 
         m.showPicker();
     }
