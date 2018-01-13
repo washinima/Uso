@@ -25,7 +25,7 @@ public class PlayScreen extends Game{
     public PlayScreen(int width, int height, MusicInterface musicInterface) {
         this.width = width;
         this.height = height;
-        game = new ActualGame(width, height);
+        game = new ActualGame(width, height, musicInterface.musicPath());
 
         this.musicInterface = musicInterface;
 
