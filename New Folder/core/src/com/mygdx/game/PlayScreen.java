@@ -14,28 +14,42 @@ public class PlayScreen extends Game{
 
     public Stage stage;
     private MusicList musicList;
+    private ActualGame game;
+
+    private int state;
 
     private int width;
     private int height;
 
-    private Image background;
-
     public PlayScreen(int width, int height) {
         this.width = width;
         this.height = height;
+        musicList = new MusicList(width, height);
+        game = new ActualGame(width, height);
+
     }
 
     @Override
     public void create(){
 
-        stage = new Stage(new ScreenViewport());
-        background = new Image(new Texture("menulist_background.png"));
-        background.setSize(width,height);
+        state = 0;
 
-        //musicList = new MusicList();
-        //musicList.create();
+        musicList.create();
 
-        stage.addActor(background);
+        stage = musicList.stage;
+    }
+
+    public void render()
+    {
+        switch (state)
+        {
+            case 0:
+                stage = musicList.stage;
+                break;
+            case 1:
+                stage = game.stage;
+                break;
+        }
     }
 
     @Override

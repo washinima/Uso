@@ -97,6 +97,7 @@ public class MenuScreen extends Game{
                 aux_stage = stage;
                 break;
             case 0:
+                playScreen.render();
                 aux_stage = playScreen.stage;
                 break;
             case 1:
