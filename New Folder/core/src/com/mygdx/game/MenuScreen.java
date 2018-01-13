@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -114,7 +115,7 @@ public class MenuScreen extends Game{
         aux_stage = stage;
     }
 
-    public void render(){
+    public void render(SpriteBatch batch){
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
         switch (btnSelected){
@@ -122,11 +123,11 @@ public class MenuScreen extends Game{
                 aux_stage = stage;
                 break;
             case 0:
-                playScreen.render();
-                aux_stage = playScreen.stage;
+                //playScreen.render(batch);
+                aux_stage = playScreen.getStage();
                 break;
             case 1:
-                aux_stage = optionsScreen.stage;
+                aux_stage = optionsScreen.getStage();
                 if(optionsScreen.getLeave())
                 {
                     btnSelected = -1;

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -15,6 +16,8 @@ public class PlayScreen extends Game{
     public Stage stage, aux_stage;
     private ActualGame game;
 
+    private Image background;
+
     private MusicInterface musicInterface;
 
     private int state;
@@ -25,6 +28,7 @@ public class PlayScreen extends Game{
     public PlayScreen(int width, int height, MusicInterface musicInterface) {
         this.width = width;
         this.height = height;
+
         game = new ActualGame(width, height, musicInterface.musicPath());
 
         this.musicInterface = musicInterface;
@@ -36,7 +40,9 @@ public class PlayScreen extends Game{
 
         state = 0;
 
-        aux_stage = new Stage();
+        stage = new Stage(new ScreenViewport());
+        background = new Image(new Texture("menulist_background.png"));
+        background.setSize(width,height);
 
         ////Cria os butoes e a informaçao que quiseres neste stage Marcio
         // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
@@ -48,19 +54,27 @@ public class PlayScreen extends Game{
 
         // Um butao back para voltar ao menu screen.
 
+        stage.addActor(background);
 
-        stage = aux_stage;
+
+        aux_stage = stage;
     }
 
-    public void render()
+    public Stage getStage()
+    {
+        return aux_stage;
+    }
+
+    public void render(SpriteBatch batch)
     {
         switch (state)
         {
             case 0:
-                stage = aux_stage;
+                aux_stage = stage;
                 break;
             case 1:
-                stage = game.stage;
+                game.render(batch);
+                aux_stage = game.stage;
                 break;
         }
     }

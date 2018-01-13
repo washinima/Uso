@@ -59,6 +59,11 @@ public class OptionsScreen extends Game {
         stage.addActor(backBtn);
     }
 
+    public Stage getStage()
+    {
+        return stage;
+    }
+
     public boolean getLeave(){ return leave; }
     public void setLeave(boolean value){ leave = value; }
 
