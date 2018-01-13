@@ -74,7 +74,7 @@ public class MyGdxGame extends ApplicationAdapter {
             case 2:
                 break;
             case 3:
-                menu.render();
+                menu.render(batch);
                 break;
         }
 
