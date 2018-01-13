@@ -21,8 +21,9 @@ public class MenuScreen extends Game{
     private PlayScreen playScreen;
     private OptionsScreen optionsScreen;
     private Stage stage, aux_stage;
-    private Image background, logo, playBtn, optionsBtn, exitBtn;
+    private Image background, logo, playBtn, optionsBtn, exitBtn, userBtn;
     private int width, height, btnSelected;
+    private boolean userOnline;
 
     public MenuScreen(int width, int height) {
         this.width = width;
