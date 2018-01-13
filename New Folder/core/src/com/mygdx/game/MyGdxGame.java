@@ -15,6 +15,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,9 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
     Music music;
     Random generator;
     ArrayList<Hittable> map;
-
     float diff = 1f;
-
 
     private final MusicInterface m;
     private String source = "test.mp3";

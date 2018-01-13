@@ -19,6 +19,7 @@ import com.badlogic.gdx.audio.AudioRecorder;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.firebase.auth.FirebaseAuth;
 
 import be.tarsos.dsp.io.android.AndroidFFMPEGLocator;
 
@@ -73,6 +74,18 @@ public class AndroidLauncher extends AndroidApplication {
             Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, 1);
         }
+    }
+
+    public class LibgdxFirebase implements FirebaseInterface
+    {
+        private FirebaseAuth mAuth;
+
+        public LibgdxFirebase()
+        {
+            mAuth = FirebaseAuth.getInstance();
+        }
+
+        //public void
     }
 
     @Override
