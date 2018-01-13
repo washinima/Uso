@@ -25,16 +25,20 @@ public class MenuScreen extends Game{
     private int width, height, btnSelected;
     private boolean userOnline;
 
-    public MenuScreen(int width, int height) {
+    MusicInterface music;
+
+    public MenuScreen(int width, int height, MusicInterface musicInterface) {
         this.width = width;
         this.height = height;
+
+        this.music = musicInterface;
     }
 
     @Override
     public void create() {
         stage = new Stage(new ScreenViewport());
 
-        playScreen = new PlayScreen(width,height);
+        playScreen = new PlayScreen(width,height, music);
         playScreen.create();
         optionsScreen = new OptionsScreen(width,height);
         optionsScreen.create();
