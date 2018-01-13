@@ -3,12 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
@@ -39,6 +39,7 @@ public class MenuScreen extends Game{
         optionsScreen.create();
 
         btnSelected = -1;
+        userOnline = false;
 
         background = new Image(new Texture("menu_background.jpg"));
         background.setSize(width,height);
@@ -80,11 +81,30 @@ public class MenuScreen extends Game{
             }
         });
 
+        userBtn = new Image(new Texture("user.png"));
+        userBtn.setSize(userBtn.getWidth()/3,userBtn.getHeight()/3);
+        userBtn.setPosition(width - userBtn.getWidth(),height - userBtn.getHeight());
+        userBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(userOnline == false) {
+                    // registar ou login
+                    userBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("user_on.png"))));
+                    userOnline= true;
+                }
+                else {
+                    userBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("user.png"))));
+                    userOnline = false;
+                }
+            }
+        });
+
         stage.addActor(background);
         stage.addActor(playBtn);
         stage.addActor(optionsBtn);
         stage.addActor(exitBtn);
         stage.addActor(logo);
+        stage.addActor(userBtn);
 
         aux_stage = stage;
     }

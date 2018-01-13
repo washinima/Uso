@@ -32,8 +32,9 @@ public class PlayScreen extends Game{
         background = new Image(new Texture("menulist_background.png"));
         background.setSize(width,height);
 
-        //musicList = new MusicList();
-        //musicList.create();
+        musicList = new MusicList();
+        musicList.create();
+        //musicList.resize(width,200);
 
         stage.addActor(background);
     }

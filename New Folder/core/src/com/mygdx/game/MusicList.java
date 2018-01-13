@@ -31,7 +31,7 @@ public class MusicList extends ApplicationAdapter {
         Table table = new Table();
 
         final ScrollPane scroll = new ScrollPane(table, skin);
-        scroll.setScrollingDisabled(true,false); // Move na vertical
+        scroll.setScrollingDisabled(true,true); // Move na vertical
 
         table.pad(10).defaults().expandX().space(4);
         for (int i = 0; i < 100; i++) { // musicCount
@@ -52,10 +52,10 @@ public class MusicList extends ApplicationAdapter {
         stage.draw();
     }
 
-    @Override
+    /*@Override
     public void resize (int width, int height) {
         stage.getViewport().update(width, height, true);
-    }
+    }*/
 
     @Override
     public void dispose () {

@@ -47,7 +47,7 @@ public class OptionsScreen extends Game {
             }
         });
         backBtn = new Image(new Texture("back_button.png"));
-        backBtn.setPosition((width/2)- (backBtn.getWidth()/2),(height/2) - (backBtn.getHeight()/2));
+        backBtn.setPosition((width/2)- (backBtn.getWidth()/2),(height/2) - (background.getHeight()/4)- (backBtn.getHeight()/2));
         backBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
