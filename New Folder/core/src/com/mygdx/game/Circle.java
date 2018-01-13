@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -26,9 +27,13 @@ public class Circle {
     private float initHaloTime, initHaloSize;
     private double clickTime;
 
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private CharSequence str;
+
     public double getTime(){ return clickTime; }
 
-    public Circle(double time, int x, int y, int circleSize, float approachRate, Color color)
+    public Circle(double time, int x, int y, int circleSize, float approachRate, Color color, CharSequence num)
     {
         shapeRenderer = new ShapeRenderer();
         projectionMatrixSet = false;
@@ -38,6 +43,10 @@ public class Circle {
         haloTime = initHaloTime;
         haloSize = initHaloSize;
         clickTime = time;
+        str = num;
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().scale(circleSize / 40.0f);
 
         this.x = x;
         this.y = y;
@@ -73,7 +82,7 @@ public class Circle {
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             //Circle Halo to show when to click
-            shapeRenderer.setColor(color);
+            shapeRenderer.setColor(Color.WHITE);
             shapeRenderer.circle(x, y, haloSize);
             shapeRenderer.setColor(color);
             shapeRenderer.circle(x, y, haloSize + 1);
@@ -81,7 +90,13 @@ public class Circle {
             shapeRenderer.circle(x, y, haloSize + 2);
             shapeRenderer.setColor(color);
             shapeRenderer.circle(x, y, haloSize + 3);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.circle(x, y, haloSize + 4);
             shapeRenderer.end();
+
+            this.batch.begin();
+            font.draw(this.batch, str, x - font.getXHeight() / 2, y + font.getSpaceWidth());
+            this.batch.end();
         }
     }
 
