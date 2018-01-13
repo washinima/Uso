@@ -30,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 0;
+        this.stateManager = 3;
 
     }
 
@@ -38,7 +38,7 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
 
-        /*WIDTH = Gdx.graphics.getWidth();
+        WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
         menu = new MenuScreen(WIDTH,HEIGHT);
