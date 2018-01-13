@@ -79,7 +79,7 @@ public class MusicAPI
                         }
                     }
                 },
-                50, 5);
+                50, 4);
         dispatcher.addAudioProcessor(a);
 
         thread = new Thread(dispatcher);

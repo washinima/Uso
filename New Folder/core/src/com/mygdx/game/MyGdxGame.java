@@ -1,26 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.xml.soap.Text;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
@@ -34,7 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private final MusicInterface m;
     private String source = "test.mp3";
 
-    private MenuState menu;
+    private MenuScreen menu;
     public int WIDTH, HEIGHT;
 
     public MyGdxGame(MusicInterface musicInterface)
@@ -42,7 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 0;
+        this.stateManager = 3;
 
     }
 
@@ -50,13 +37,13 @@ public class MyGdxGame extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
 
-        /*WIDTH = Gdx.graphics.getWidth();
+        WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
         menu = new MenuState(WIDTH,HEIGHT);
         menu.create();*/
 
-        m.showPicker();
+        //m.showPicker();
     }
 
     @Override
@@ -85,9 +72,7 @@ public class MyGdxGame extends ApplicationAdapter {
             case 2:
                 break;
             case 3:
-                batch.begin();
-                menu.render(batch);
-                batch.end();
+                menu.render();
                 break;
         }
 
@@ -179,6 +164,6 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void dispose () {
         batch.dispose();
-        music.dispose();
+        //music.dispose();
     }
 }
