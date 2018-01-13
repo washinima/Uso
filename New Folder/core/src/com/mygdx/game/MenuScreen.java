@@ -31,6 +31,7 @@ public class MenuScreen extends Game{
     public void create() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
         playScreen = new PlayScreen(width,height);
         playScreen.create();
         optionsScreen = new OptionsScreen(width,height);
@@ -41,12 +42,13 @@ public class MenuScreen extends Game{
         background = new Image(new Texture("menu_background.jpg"));
         background.setSize(width,height);
 
-        logo = new Image(new Texture("Uso_logo.png"));
+        logo = new Image(new Texture("logo.png"));
+        logo.setSize(logo.getWidth()*2,logo.getHeight()*2);
         logo.setPosition((width/3) - (logo.getWidth()/2),(height/2) - (logo.getHeight()/2));
 
         playBtn = new Image(new Texture("play_button.png"));
         playBtn.setSize(playBtn.getWidth()*2,playBtn.getHeight()*2);
-        playBtn.setPosition((width/3) + (logo.getWidth()/2) - (playBtn.getWidth()/2),(height/2) + (logo.getHeight()/2) - (playBtn.getHeight()/2));
+        playBtn.setPosition(logo.getX() + logo.getWidth()- 80, logo.getHeight() - logo.getHeight()/4);
         playBtn.addListener(new ClickListener(){
 
             @Override
@@ -57,7 +59,7 @@ public class MenuScreen extends Game{
 
         optionsBtn = new Image(new Texture("Options_Button.png"));
         optionsBtn.setSize(optionsBtn.getWidth()*2,optionsBtn.getHeight()*2);
-        optionsBtn.setPosition((width/3) + (logo.getWidth()/2) - (optionsBtn.getWidth()/2),(height/2) - (optionsBtn.getHeight()/2));
+        optionsBtn.setPosition(logo.getX() + logo.getWidth() - 10, logo.getHeight()/2 +40);
         optionsBtn.addListener(new ClickListener(){
 
             @Override
@@ -68,7 +70,7 @@ public class MenuScreen extends Game{
 
         exitBtn = new Image(new Texture("Exit_Button.png"));
         exitBtn.setSize(exitBtn.getWidth()*2,exitBtn.getHeight()*2);
-        exitBtn.setPosition((width/3) + (logo.getWidth()/2) - (exitBtn.getWidth()/2),(height/2) - (logo.getHeight()/2) - (exitBtn.getHeight()/2));
+        exitBtn.setPosition(logo.getX() + logo.getWidth() -80,logo.getY() + logo.getHeight()/5);
         exitBtn.addListener(new ClickListener(){
 
             @Override
@@ -78,10 +80,10 @@ public class MenuScreen extends Game{
         });
 
         stage.addActor(background);
-        stage.addActor(logo);
         stage.addActor(playBtn);
         stage.addActor(optionsBtn);
         stage.addActor(exitBtn);
+        stage.addActor(logo);
     }
 
     public void render(){
@@ -94,8 +96,8 @@ public class MenuScreen extends Game{
                 break;
             case 1:
                 optionsScreen.render();
-                if( optionsScreen.isGoBack() == true)
-                    btnSelected = -1;
+               // if( optionsScreen.isGoBack() == true)
+               //    btnSelected = -1;
                 break;
             case 2:Gdx.app.exit();
                 break;

@@ -40,20 +40,20 @@ public class OptionsScreen extends Game {
         background.setPosition((width/2)- (background.getWidth()/2),(height/2) - (background.getHeight()/2));
         inactive = new Image(new Texture("inactive_background.png"));
         inactive.setSize(width,height);
-        inactive.addListener(new ClickListener(){
+        /*inactive.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 goBack = true;
             }
-        });
+        });*/
         backBtn = new Image(new Texture("back_button.png"));
         backBtn.setPosition((width/2)- (backBtn.getWidth()/2),(height/2) - (backBtn.getHeight()/2));
-        backBtn.addListener(new ClickListener(){
+        /*backBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 goBack = true;
             }
-        });
+        });*/
 
         stage.addActor(inactive);
         stage.addActor(background);
