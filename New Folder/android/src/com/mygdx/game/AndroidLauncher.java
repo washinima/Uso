@@ -39,7 +39,7 @@ public class AndroidLauncher extends AndroidApplication {
             music = null;
         }
 
-        public ArrayList<Hittable> SendMap()
+        public ArrayList<Circle> SendMap()
         {
             return api.list;
         }

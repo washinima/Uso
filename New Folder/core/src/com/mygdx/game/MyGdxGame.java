@@ -28,7 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
     int stateManager;
     Music music;
     Random generator;
-    ArrayList<Hittable> map;
+    ArrayList<Circle> map;
     float diff = 1f;
 
     private final MusicInterface m;
@@ -95,8 +95,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     public void CreateMap()
     {
-        int last_x = 0, last_y = 0, x, y;
         map = m.SendMap();
+        /*int last_x = 0, last_y = 0, x, y;
 
         for(int i = 0; i <= map.size() - 1; i++)
         {
@@ -116,7 +116,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
             last_x = x;
             last_y = y;
-        }
+        }*/
 
     }
 
@@ -133,10 +133,9 @@ public class MyGdxGame extends ApplicationAdapter {
         {
 
             float pos = music.getPosition();
-            if(
-                    compareTime(map.get(i).getTime(), pos)
-                    )
+            if (compareTime((float)map.get(i).getTime(), pos))
             {
+                map.get(i).update();
                 map.get(i).draw(batch);
             }
         }

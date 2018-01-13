@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import android.media.*;
 import android.util.Log;
 
+import com.badlogic.gdx.graphics.Color;
+
 import be.tarsos.dsp.*;
 import be.tarsos.dsp.io.PipedAudioStream;
 import be.tarsos.dsp.io.TarsosDSPAudioInputStream;
@@ -31,8 +33,9 @@ public class MusicAPI
     String directory;
     Thread thread;
     int sampleRate = 22050, bufferSize = 500, bufferOverlap = 0;
+    FlowGenerator generator;
 
-    ArrayList<Hittable> list;
+    ArrayList<Circle> list;
 
     public void Setup(Context context, String dir)
     {
@@ -42,7 +45,8 @@ public class MusicAPI
 
     public void Start()
     {
-        list = new ArrayList<Hittable>();
+        list = new ArrayList<Circle>();
+        generator = new FlowGenerator(200, 50, 1);
 
         PipedAudioStream stream = new PipedAudioStream(directory);
 
@@ -67,8 +71,11 @@ public class MusicAPI
                 {
                     @Override
                     public void handleOnset(double v, double v1) {
-                        Hittable a = new Hittable( (float)v, 0);
-                        list.add(a);
+                        ArrayList<Circle> toAdd = generator.GenerateCombo(v);
+                        for (Circle circle : toAdd)
+                        {
+                            list.add(circle);
+                        }
                     }
                 },
                 50, 5);

@@ -14,5 +14,5 @@ public interface MusicInterface {
     void showPicker();
     String musicPath();
 
-    ArrayList<Hittable> SendMap();
+    ArrayList<Circle> SendMap();
 }
