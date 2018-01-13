@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import android.media.*;
 import android.util.Log;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 import be.tarsos.dsp.*;
@@ -46,7 +47,7 @@ public class MusicAPI
     public void Start()
     {
         list = new ArrayList<Circle>();
-        generator = new FlowGenerator(200, 50, 1);
+        generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f), 1);
 
         PipedAudioStream stream = new PipedAudioStream(directory);
 

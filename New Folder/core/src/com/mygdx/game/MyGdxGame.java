@@ -54,14 +54,13 @@ public class MyGdxGame extends ApplicationAdapter {
         HEIGHT = Gdx.graphics.getHeight();
 
         menu = new MenuState(WIDTH,HEIGHT);
-        menu.create();
+        menu.create();*/
 
         m.showPicker();
     }
 
     @Override
     public void render () {
-
         switch (stateManager)
         {
             //0 Menu | 1 Escolher Musica | 2 Jogo | 3 Score Screen
@@ -76,7 +75,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 }
                 break;
             case 1:
-                Gdx.gl.glClearColor(0, 0, 1, 1);
+                Gdx.gl.glClearColor(0.1f, 0.2f, 0.7f, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
                 batch.begin();
@@ -137,17 +136,33 @@ public class MyGdxGame extends ApplicationAdapter {
             if (compareTime((float)map.get(i).getTime(), pos))
             {
                 map.get(i).update();
+                if (Gdx.input.isTouched(0))
+                {
+                    map.get(i).CheckIfClicked(Gdx.input.getX(0), Gdx.input.getY(0));
+                }
+                if (Gdx.input.isTouched(1))
+                {
+                    map.get(i).CheckIfClicked(Gdx.input.getX(1), Gdx.input.getY(1));
+                }
+                if (Gdx.input.isTouched(2))
+                {
+                    map.get(i).CheckIfClicked(Gdx.input.getX(2), Gdx.input.getY(2));
+                }
+                if( map.get(i).getTime() > music.getPosition() || !map.get(i).IsActive())
+                {
+                    map.get(i).SetActive(false);
+                }
                 map.get(i).draw(batch);
             }
         }
 
-        /*for(int i = map.size() - 1; i >= 0; i--)
+        for(int i = map.size() - 1; i >= 0; i--)
         {
-            if( map.get(i).getTime() > music.getPosition())
+            if(!map.get(i).IsActive())
             {
                 map.remove(i);
             }
-        }*/
+        }
 
     }
 

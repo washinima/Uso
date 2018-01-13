@@ -17,6 +17,9 @@ public class Circle {
     private float approachRate;
     private int circleSize;
     private int x, y;
+
+    public boolean IsActive() {return isActive;}
+    public void SetActive(boolean active) {isActive = active;}
     private boolean isActive;
     private float haloSize;
     private float haloTime;
@@ -24,7 +27,6 @@ public class Circle {
     private double clickTime;
 
     public double getTime(){ return clickTime; }
-    public int getSize(){ return circleSize; }
 
     public Circle(double time, int x, int y, int circleSize, float approachRate, Color color)
     {
@@ -42,12 +44,6 @@ public class Circle {
         this.circleSize = circleSize;
         this.approachRate = approachRate;
         this.color = color;
-    }
-
-    public void setPosition(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
     }
 
     public void update()
@@ -79,13 +75,21 @@ public class Circle {
             //Circle Halo to show when to click
             shapeRenderer.setColor(color);
             shapeRenderer.circle(x, y, haloSize);
+            shapeRenderer.setColor(color);
+            shapeRenderer.circle(x, y, haloSize + 1);
+            shapeRenderer.setColor(color);
+            shapeRenderer.circle(x, y, haloSize + 2);
+            shapeRenderer.setColor(color);
+            shapeRenderer.circle(x, y, haloSize + 3);
             shapeRenderer.end();
         }
     }
 
     public void CheckIfClicked(int xInput, int yInput)
     {
-        if (Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2)) < circleSize)
+        //if (Math.abs(Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2))) < circleSize)
+        if (xInput < (x + circleSize) && xInput > (x - circleSize) && yInput < (y + circleSize) && yInput > (y - circleSize)) {
             isActive = false;
+        }
     }
 }

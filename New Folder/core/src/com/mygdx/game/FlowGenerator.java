@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.Random;
 
+import jdk.nashorn.internal.runtime.Debug;
+
 /**
  * Created by bruno on 13/01/2018.
  */
@@ -25,6 +27,11 @@ public class FlowGenerator {
     private double time;
     private float approachRate;
     private int circleSize;
+    private ArrayList<Color> colors;
+    private Color currentColor;
+    private int indexColor;
+    private int colorCycle;
+    private int numCombo;
 
     private float timeBetweenJump = 0.1f;
 
@@ -36,10 +43,23 @@ public class FlowGenerator {
         random = new Random();
         lastX = 0;
         lastY = 0;
+        colors = new ArrayList<Color>();
+        colors.add(new Color(226/255.0f, 15/255.0f, 15/255.0f, 1));
+        colors.add(new Color(46/255.0f, 206/255.0f, 18/255.0f, 1));
+        colors.add(new Color(14/255.0f, 35/255.0f, 201/255.0f, 1));
+        colors.add(new Color(255/255.0f, 232/255.0f, 30/255.0f, 1));
+        indexColor = 0;
+        currentColor = colors.get(indexColor);
+        colorCycle = 1;
+        numCombo = 1;
     }
 
     public ArrayList<Circle> GenerateCombo(double time)
     {
+        colorCycle++;
+        if (colorCycle > 4)
+            CycleColors();
+        numCombo++;
         this.time = time;
         circles = new ArrayList<Circle>();
         int opt = random.nextInt(1);
@@ -63,17 +83,17 @@ public class FlowGenerator {
     private void SingleCircle(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition();
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, Color.RED));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor));
     }
 
     private void TripleJump(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition();
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, Color.RED));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor));
         pos = CalculatePosition();
-        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, Color.RED));
+        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor));
         pos = CalculatePosition();
-        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, Color.RED));
+        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, currentColor));
     }
 
     private void TripleStream(ArrayList<Circle> combo)
@@ -94,5 +114,15 @@ public class FlowGenerator {
         lastX = pos.X;
         lastY = pos.Y;
         return pos;
+    }
+
+    private void CycleColors()
+    {
+        indexColor++;
+        if (indexColor == colors.size())
+            indexColor = 0;
+        currentColor = colors.get(indexColor);
+        colorCycle = 1;
+        numCombo = 1;
     }
 }
