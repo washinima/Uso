@@ -35,7 +35,6 @@ public class OptionsScreen extends Game {
 
         stage = new Stage(new ScreenViewport());
 
-
         background = new Image(new Texture("options_background.png"));
         background.setPosition((width/2)- (background.getWidth()/2),(height/2) - (background.getHeight()/2));
         inactive = new Image(new Texture("inactive_background.png"));
