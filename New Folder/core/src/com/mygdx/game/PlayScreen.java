@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class PlayScreen extends Game{
 
-    private Stage stage;
+    public Stage stage;
     private MusicList musicList;
 
     private int width;
@@ -36,14 +36,6 @@ public class PlayScreen extends Game{
         //musicList.create();
 
         stage.addActor(background);
-    }
-
-    public void render(){
-
-        stage.act();
-        stage.draw();
-
-        //musicList.render();
     }
 
     @Override

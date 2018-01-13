@@ -40,10 +40,10 @@ public class MyGdxGame extends ApplicationAdapter {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
-        menu = new MenuState(WIDTH,HEIGHT);
-        menu.create();*/
+        menu = new MenuScreen(WIDTH,HEIGHT);
+        menu.create();
 
-        //m.showPicker();
+       //m.showPicker();
     }
 
     @Override

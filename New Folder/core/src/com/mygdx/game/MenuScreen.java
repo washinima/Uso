@@ -20,7 +20,7 @@ public class MenuScreen extends Game{
 
     private PlayScreen playScreen;
     private OptionsScreen optionsScreen;
-    private Stage stage;
+    private Stage stage, aux_stage;
     private Image background, logo, playBtn, optionsBtn, exitBtn;
     private int width, height, btnSelected;
 
@@ -85,25 +85,35 @@ public class MenuScreen extends Game{
         stage.addActor(optionsBtn);
         stage.addActor(exitBtn);
         stage.addActor(logo);
-        Gdx.input.setInputProcessor(stage);
+
+        aux_stage = stage;
     }
 
     public void render(){
-        stage.act();
-        stage.draw();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
 
         switch (btnSelected){
+            case -1:
+                aux_stage = stage;
+                break;
             case 0:
-                playScreen.render();
+                aux_stage = playScreen.stage;
                 break;
             case 1:
-                optionsScreen.render();
-                if( optionsScreen.isGoBack() == true)
-                   btnSelected = -1;
+                aux_stage = optionsScreen.stage;
+                if(optionsScreen.getLeave())
+                {
+                    btnSelected = -1;
+                    optionsScreen.setLeave(false);
+                }
                 break;
-            case 2:Gdx.app.exit();
+            case 2:
+                Gdx.app.exit();
                 break;
         }
+        Gdx.input.setInputProcessor(aux_stage);
+        aux_stage.act();
+        aux_stage.draw();
     }
 
     @Override
