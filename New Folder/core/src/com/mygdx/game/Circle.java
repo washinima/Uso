@@ -110,8 +110,7 @@ public class Circle {
     public boolean CheckIfClicked(int xInput, int yInput, double timeWasClicked, double diff)
     {
         yInput = Gdx.graphics.getHeight() - yInput;
-        if (Math.abs(Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2))) < circleSize)
-        /*if (xInput < (x + circleSize) && xInput > (x - circleSize) && yInput < (y + circleSize) && yInput > (y - circleSize))*/ {
+        if (Math.abs(Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2))) < circleSize) {
             isActive = false;
 
             double playerTime = (clickTime + diff / 1.85) - timeWasClicked;
