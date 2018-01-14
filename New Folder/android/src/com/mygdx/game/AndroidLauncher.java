@@ -19,9 +19,11 @@ public class AndroidLauncher extends AndroidApplication {
 
     String music;
     boolean ready;
+    private ActionSolver solver;
 
     public class AndroidMusic implements MusicInterface {
         private final MusicAPI api;
+
 
         public AndroidMusic()
         {
