@@ -20,6 +20,8 @@ public class ActualGame
     private Image background;
     public Stage stage;
 
+    public boolean endGame;
+
     boolean playingMusic;
     Music music;
     SpriteBatch fontBatch;
@@ -48,6 +50,7 @@ public class ActualGame
 
     public void create()
     {
+        endGame = false;
         stage = new Stage();
 
         background = new Image(new Texture("menulist_background.png"));
@@ -81,6 +84,14 @@ public class ActualGame
         {
             music = Gdx.audio.newMusic(Gdx.files.absolute(musicInterface.musicPath()));
             music.play();
+            music.setOnCompletionListener(
+                    new Music.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(Music music) {
+                            endGame = true;
+                        }
+                    }
+            );
             playingMusic = true;
         }
 

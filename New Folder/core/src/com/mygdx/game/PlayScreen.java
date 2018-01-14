@@ -127,6 +127,12 @@ public class PlayScreen extends Game{
 
                 game.render(batch);
                 aux_stage = game.stage;
+
+                if(game.endGame)
+                {
+                    state = 0;
+                    game.create();
+                }
                 break;
         }
     }
