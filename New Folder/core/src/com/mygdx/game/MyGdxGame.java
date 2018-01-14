@@ -82,8 +82,6 @@ public class MyGdxGame extends ApplicationAdapter {
                 Gdx.gl.glClearColor(0.1f, 0.2f, 0.7f, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-                strScore = Integer.toString(score);
-                strCombo = Integer.toString(combo);
 
                 batch.begin();
                 ActualGame();

@@ -68,6 +68,9 @@ public class ActualGame
 
     public void render(SpriteBatch batch)
     {
+        strScore = Integer.toString(score);
+        strCombo = Integer.toString(combo);
+
         batch.begin();
         Game(batch);
         batch.end();
