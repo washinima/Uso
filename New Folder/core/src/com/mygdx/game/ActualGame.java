@@ -21,7 +21,6 @@ public class ActualGame
     public Stage stage;
 
     boolean playingMusic;
-    int stateManager;
     Music music;
     SpriteBatch fontBatch;
     ArrayList<Circle> map;

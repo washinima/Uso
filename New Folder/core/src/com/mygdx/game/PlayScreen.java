@@ -20,8 +20,9 @@ public class PlayScreen extends Game{
 
     public Stage stage, aux_stage;
     private ActualGame game;
+    private InformationText informationText;
 
-    private Image background, playBtn, chooseBtn;
+    private Image background, playBtn, chooseBtn, backBtn;
 
     private MusicInterface musicInterface;
 
@@ -29,15 +30,16 @@ public class PlayScreen extends Game{
 
     private int width;
     private int height;
+    private boolean leave;
 
     public PlayScreen(int width, int height, MusicInterface musicInterface) {
         this.width = width;
         this.height = height;
 
         game = new ActualGame(width, height, musicInterface);
-
         this.musicInterface = musicInterface;
 
+        leave = false;
     }
 
     @Override
@@ -49,29 +51,44 @@ public class PlayScreen extends Game{
         background = new Image(new Texture("menulist_background.png"));
         background.setSize(width,height);
 
-        ////Cria os butoes e a informaçao que quiseres neste stage Marcio
-        playBtn = new Image(new Texture("play.png"));
-        playBtn.setSize(playBtn.getWidth()/3,playBtn.getHeight()/3);
-        playBtn.setPosition(0,0);
+        playBtn = new Image(new Texture("noplay.png"));
+        playBtn.setSize(playBtn.getWidth()/2,playBtn.getHeight()/2);
+        playBtn.setPosition(80, height - (playBtn.getHeight()*2) - 160);
         playBtn.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                state = 1;
-                if(musicInterface.isReady())
-                    musicInterface.SetupRun();
-                    game.create();
-            }
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if(musicInterface.isReady()){
+                        state = 1;
+                        musicInterface.SetupRun();
+                        game.create();
+                    }
+                    //else{ Imprimir texto de ajuda }
+
+                }
         });
 
-        chooseBtn = new Image(new Texture("play.png"));
-        chooseBtn.setSize(chooseBtn.getWidth()/3,chooseBtn.getHeight()/3);
-        chooseBtn.setPosition(width - chooseBtn.getWidth(),chooseBtn.getHeight());
+        chooseBtn = new Image(new Texture("choose.png"));
+        chooseBtn.setSize(playBtn.getWidth(),playBtn.getHeight());
+        chooseBtn.setPosition(80, (height - playBtn.getHeight())-80);
         chooseBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 musicInterface.showPicker();
             }
         });
+
+        backBtn = new Image(new Texture("back_button.png"));
+        backBtn.setSize(backBtn.getWidth(),backBtn.getHeight());
+        backBtn.setPosition(20,20);
+        backBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                leave = true;
+            }
+        });
+
+        informationText = new InformationText();
+        informationText.create();
         // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
 
         // Funçao para chamar o music picker.
@@ -84,6 +101,7 @@ public class PlayScreen extends Game{
         stage.addActor(background);
         stage.addActor(chooseBtn);
         stage.addActor(playBtn);
+        stage.addActor(backBtn);
 
         aux_stage = stage;
     }
@@ -99,10 +117,11 @@ public class PlayScreen extends Game{
         {
             case 0:
                 aux_stage = stage;
+                //informationText.render();
                 break;
             case 1:
-                if(musicInterface.isReady())
-                {
+                if(musicInterface.isReady()) {
+                    playBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("play.png"))));
                     musicInterface.SetupRun();
                 }
 
@@ -116,4 +135,8 @@ public class PlayScreen extends Game{
     public void dispose () {
         stage.dispose();
     }
+
+    public boolean getLeave(){ return leave; }
+    public void setLeave(boolean value){ leave = value; }
+
 }
