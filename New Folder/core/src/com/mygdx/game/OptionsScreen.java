@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
- * Created by Marcio Rocha on 13/01/2018.
+ * Created by Marcio on 13/01/2018.
  */
 
 public class OptionsScreen extends Game {

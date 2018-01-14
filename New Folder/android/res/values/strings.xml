@@ -2,5 +2,8 @@
 <resources>
 
     <string name="app_name">test2</string>
+    <string name="title_activity_fire_base_login">FireBaseLogin</string>
+    <string name="title_activity_scores">Scores</string>
+    <string name="title_activity_user_score">UserScore</string>
 
 </resources>

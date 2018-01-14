@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
 /**
- * Created by Marcio Rocha on 13/01/2018.
+ * Created by Marcio on 13/01/2018.
  */
 
 public class MusicList extends ApplicationAdapter {

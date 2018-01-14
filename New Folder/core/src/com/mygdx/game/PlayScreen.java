@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,21 +15,22 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
 /**
- * Created by Marcio Rocha on 13/01/2018.
+ * Created by Marcio on 13/01/2018.
  */
 
 public class PlayScreen extends Game{
 
     public Stage stage, aux_stage;
     private ActualGame game;
-    private InformationText informationText;
+    private MusicInterface musicInterface;
+
+    private SpriteBatch fontBatch;
+    private BitmapFont font;
+    private String strScore;
 
     private Image background, playBtn, chooseBtn, backBtn;
 
-    private MusicInterface musicInterface;
-
     private int state;
-
     private int width;
     private int height;
     private boolean leave;
@@ -87,16 +90,12 @@ public class PlayScreen extends Game{
             }
         });
 
-        informationText = new InformationText();
-        informationText.create();
-        // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
+        fontBatch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().scale(3);
+        font.setColor(Color.BLACK);
+        strScore = Integer.toString(0);
 
-        // Funçao para chamar o music picker.
-        // musicInterface.showPicker();
-
-        // O play muda o state para 1. Depois quando acaba muda-se para o music picker outravez
-
-        // Um butao back para voltar ao menu screen.
 
         stage.addActor(background);
         stage.addActor(chooseBtn);
@@ -117,7 +116,11 @@ public class PlayScreen extends Game{
         {
             case 0:
                 aux_stage = stage;
-                //informationText.render();
+
+                fontBatch.begin();
+                font.draw(fontBatch,"Best Score: " + strScore,width - width/3,height - height/3);
+                fontBatch.end();
+
                 break;
             case 1:
                 if(musicInterface.isReady()) {
@@ -135,6 +138,10 @@ public class PlayScreen extends Game{
                 }
                 break;
         }
+    }
+
+    public void UpdateTextScore(int score){
+        strScore = Integer.toString(score);
     }
 
     @Override

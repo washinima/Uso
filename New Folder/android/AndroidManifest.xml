@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mygdx.game" >
+    package="com.mygdx.game">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/uso_logo"
         android:label="Uso?"
-        android:theme="@style/GdxTheme" >
+        android:theme="@style/GdxTheme">
         <activity
-            android:name="com.mygdx.game.AndroidLauncher"
+            android:name=".AndroidLauncher"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="Uso!"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FireBaseLogin"
+            android:label="@string/title_activity_fire_base_login" />
+        <activity
+            android:name=".ScoresActivity"
+            android:label="@string/title_activity_scores" />
+        <activity
+            android:name=".UserScore"
+            android:label="@string/title_activity_user_score"></activity>
     </application>
 
 </manifest>

@@ -1,27 +1,18 @@
 package com.mygdx.game;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.media.*;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.audio.AudioRecorder;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.firebase.auth.FirebaseAuth;
-
-import be.tarsos.dsp.io.android.AndroidFFMPEGLocator;
 
 
 public class AndroidLauncher extends AndroidApplication {
@@ -76,8 +67,7 @@ public class AndroidLauncher extends AndroidApplication {
         }
     }
 
-    public class LibgdxFirebase implements FirebaseInterface
-    {
+    public class LibgdxFirebase {
         private FirebaseAuth mAuth;
 
         public LibgdxFirebase()

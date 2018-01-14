@@ -21,6 +21,7 @@ public class MenuScreen extends Game{
 
     private PlayScreen playScreen;
     private OptionsScreen optionsScreen;
+    private FireBaseLogin fireBaseLogin;
     private Stage stage, aux_stage;
     private Image background, logo, playBtn, optionsBtn, exitBtn, userBtn;
     private int width, height, btnSelected;
@@ -96,7 +97,8 @@ public class MenuScreen extends Game{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if(userOnline == false) {
-                    // registar ou login
+
+                    btnSelected = 3;
                     userBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("user_on.png"))));
                     userOnline= true;
                 }
@@ -124,6 +126,7 @@ public class MenuScreen extends Game{
         aux_stage.act();
         aux_stage.draw();
 
+
         switch (btnSelected){
             case -1:
                 aux_stage = stage;
@@ -149,7 +152,6 @@ public class MenuScreen extends Game{
                 Gdx.app.exit();
                 break;
         }
-
     }
 
     @Override
