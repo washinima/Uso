@@ -159,7 +159,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 circle.draw(batch);
             }
 
-            if (circle.IsActive() && circle.getTime() < music.getPosition() - diff && !circle.wasClicked) {
+            if (circle.getTime() < music.getPosition() - diff && circle.IsActive() && !circle.wasClicked) {
                 map.remove(i);
                 circle.SetActive(false);
                 circle.setScore(0);

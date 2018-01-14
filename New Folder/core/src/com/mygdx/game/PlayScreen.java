@@ -29,7 +29,7 @@ public class PlayScreen extends Game{
         this.width = width;
         this.height = height;
 
-        game = new ActualGame(width, height, musicInterface.musicPath());
+        //game = new ActualGame(width, height, musicInterface.musicPath());
 
         this.musicInterface = musicInterface;
 
@@ -73,7 +73,7 @@ public class PlayScreen extends Game{
                 aux_stage = stage;
                 break;
             case 1:
-                game.render(batch);
+                //game.render(batch);
                 aux_stage = game.stage;
                 break;
         }
