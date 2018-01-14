@@ -91,7 +91,7 @@ public class MenuScreen extends Game{
 
         userBtn = new Image(new Texture("user.png"));
         userBtn.setSize(userBtn.getWidth()/3,userBtn.getHeight()/3);
-        userBtn.setPosition(width - userBtn.getWidth(),height - userBtn.getHeight());
+        userBtn.setPosition(width - userBtn.getWidth() - 20,height - userBtn.getHeight() - 20);
         userBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -131,6 +131,11 @@ public class MenuScreen extends Game{
             case 0:
                 aux_stage = playScreen.getStage();
                 playScreen.render(batch);
+                if(playScreen.getLeave())
+                {
+                    btnSelected = -1;
+                    playScreen.setLeave(false);
+                }
                 break;
             case 1:
                 aux_stage = optionsScreen.getStage();
