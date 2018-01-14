@@ -52,7 +52,7 @@ public class MyGdxGame extends ApplicationAdapter {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
-        menu = new MenuScreen(WIDTH,HEIGHT);
+        menu = new MenuScreen(WIDTH,HEIGHT, m);
         menu.create();
 
        m.showPicker();
@@ -90,7 +90,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 batch.end();
                 break;
             case 3:
-                menu.render();
+                menu.render(batch);
                 break;
         }
     }
@@ -180,6 +180,6 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void dispose () {
         batch.dispose();
-        //music.dispose();
+        music.dispose();
     }
 }

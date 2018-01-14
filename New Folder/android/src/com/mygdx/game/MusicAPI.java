@@ -33,7 +33,7 @@ public class MusicAPI
     AudioDispatcher dispatcher;
     String directory;
     Thread thread;
-    int sampleRate = 22050, bufferSize = 500, bufferOverlap = 0;
+    int sampleRate = 22050, bufferSize = 1024, bufferOverlap = 0;
     FlowGenerator generator;
 
     ArrayList<Circle> list;

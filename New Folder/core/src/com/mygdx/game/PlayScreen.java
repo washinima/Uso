@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -12,31 +13,70 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class PlayScreen extends Game{
 
-    public Stage stage;
-    private MusicList musicList;
+    public Stage stage, aux_stage;
+    private ActualGame game;
+
+    private Image background;
+
+    private MusicInterface musicInterface;
+
+    private int state;
 
     private int width;
     private int height;
 
-    private Image background;
-
-    public PlayScreen(int width, int height) {
+    public PlayScreen(int width, int height, MusicInterface musicInterface) {
         this.width = width;
         this.height = height;
+
+        game = new ActualGame(width, height, musicInterface.musicPath());
+
+        this.musicInterface = musicInterface;
+
     }
 
     @Override
     public void create(){
 
+        state = 0;
+
         stage = new Stage(new ScreenViewport());
         background = new Image(new Texture("menulist_background.png"));
         background.setSize(width,height);
 
-        musicList = new MusicList();
-        musicList.create();
-        //musicList.resize(width,200);
+        ////Cria os butoes e a informaçao que quiseres neste stage Marcio
+        // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
+
+        // Funçao para chamar o music picker.
+        // musicInterface.showPicker();
+
+        // O play muda o state para 1. Depois quando acaba muda-se para o music picker outravez
+
+        // Um butao back para voltar ao menu screen.
 
         stage.addActor(background);
+
+
+        aux_stage = stage;
+    }
+
+    public Stage getStage()
+    {
+        return aux_stage;
+    }
+
+    public void render(SpriteBatch batch)
+    {
+        switch (state)
+        {
+            case 0:
+                aux_stage = stage;
+                break;
+            case 1:
+                game.render(batch);
+                aux_stage = game.stage;
+                break;
+        }
     }
 
     @Override
