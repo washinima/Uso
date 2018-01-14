@@ -11,6 +11,7 @@ import android.os.Environment;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -40,6 +41,10 @@ public class MusicAPI
     int sampleRate = 22050, bufferSize = 3072, bufferOverlap = 0;
     FlowGenerator generator;
 
+    private BufferedWriter writer = null;
+
+    boolean creating;
+
     ArrayList<Circle> list;
 
     public void Setup(Context context, String dir)
@@ -48,40 +53,35 @@ public class MusicAPI
         MusicDirectory(dir);
     }
 
-    public void Start()
+    public void Start(Context context)
     {
-//        if (false/*file exists*/)
-//        {
-//            BufferedReader br = null;
-//            try {
-//                FileReader r = new FileReader("file.txt");
-//                StringBuilder sb = new StringBuilder();
-//                String line = br.readLine();
-//
-//                while (line != null) {
-//                    sb.append(line);
-//                    sb.append(System.lineSeparator());
-//                    line = br.readLine();
-//                }
-//                String everything = sb.toString();
-//            } catch (Exception e) { }
-//            finally {
-//                try {br.close();} catch (Exception e) {}
-//            }
-//        }
+        try {
 
+            int hash = directory.hashCode();
 
-        list = new ArrayList<Circle>();
-        generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f), 1);
+            String source = Integer.toString(hash) + ".txt";
 
-        PipedAudioStream stream = new PipedAudioStream(directory);
+            File file = new File(context.getFilesDir(), source);
 
-        TarsosDSPAudioInputStream audioStream = stream.getMonoStream(sampleRate, bufferOverlap);
+            if(file.isFile())
+            {
+                ReadFile(file);
+            }
+            else
+            {
+                list = new ArrayList<Circle>();
+                generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f), 1);
 
-        dispatcher = new AudioDispatcher(audioStream, bufferSize, bufferOverlap);
+                PipedAudioStream stream = new PipedAudioStream(directory);
 
-        PercussionDetection();
+                TarsosDSPAudioInputStream audioStream = stream.getMonoStream(sampleRate, bufferOverlap);
 
+                dispatcher = new AudioDispatcher(audioStream, bufferSize, bufferOverlap);
+
+                PercussionDetection(file);
+
+            }
+        } catch (Exception e) {}
 
     }
 
@@ -90,42 +90,81 @@ public class MusicAPI
         this.directory = dir;
     }
 
-    public void PercussionDetection()
+    public void PercussionDetection(File path)
     {
-        PercussionOnsetDetector a = new PercussionOnsetDetector(dispatcher.getFormat().getSampleRate(), bufferSize,
+        PercussionOnsetDetector a = null;
+
+        try
+        {
+            writer = new BufferedWriter(new FileWriter(path));
+
+            a = new PercussionOnsetDetector(dispatcher.getFormat().getSampleRate(), bufferSize,
                 new OnsetHandler()
                 {
                     @Override
                     public void handleOnset(double v, double v1) {
                         ArrayList<Circle> toAdd = generator.GenerateCombo(v);
-                        for (Circle circle : toAdd)
+                        for (Circle c : toAdd)
                         {
-                            list.add(circle);
+                            list.add(c);
+                            try {
+                                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
+                            } catch (Exception e) {}
                         }
                     }
                 },
                 28, -1.5);
+        } catch (Exception e) {}
+        finally {
+            try {
+                writer.close();
+            } catch (Exception e) {}
+        }
         dispatcher.addAudioProcessor(a);
-
-//        BufferedWriter writer = null;
-//        try
-//        {
-//            String info;
-//            File file = new File(/*file path*/);
-//            writer = new BufferedWriter(new FileWriter(file));
-//            /*time,x,y*/
-//            for (Circle c : list)
-//            {
-//                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
-//            }
-//        } catch (Exception e) {}
-//        finally {
-//            try {
-//                writer.close();
-//            } catch (Exception e) {}
-//        }
 
         thread = new Thread(dispatcher);
         thread.run();
+    }
+
+    public void WriteFile(File path)
+    {
+        BufferedWriter writer = null;
+        try
+        {
+            writer = new BufferedWriter(new FileWriter(path));
+            Log.d("Write", "1");
+            /*time,x,y*/
+            for (Circle c : list)
+            {
+                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
+            }
+        } catch (Exception e) {}
+        finally {
+            try {
+                writer.close();
+            } catch (Exception e) {}
+        }
+    }
+
+    public void ReadFile(File path)
+    {
+        BufferedReader br = null;
+        Log.d("Read", "2");
+        try {
+            FileReader r = new FileReader(path);
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+
+                line = br.readLine();
+            }
+            String everything = sb.toString();
+        } catch (Exception e) { }
+        finally {
+            try {br.close();} catch (Exception e) {}
+        }
     }
 }

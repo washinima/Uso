@@ -64,6 +64,8 @@ public class ActualGame
 
         stage.addActor(background);
 
+        music = null;
+
         map = musicInterface.SendMap();
         source = musicInterface.musicPath();
 
@@ -102,6 +104,7 @@ public class ActualGame
                         @Override
                         public void onCompletion(Music music) {
                             endGame = true;
+                            playingMusic = false;
                         }
                     }
             );

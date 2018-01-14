@@ -21,7 +21,7 @@ android {
     }
     defaultConfig {
         applicationId "com.mygdx.game"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"

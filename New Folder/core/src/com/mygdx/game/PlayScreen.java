@@ -22,7 +22,8 @@ public class PlayScreen extends Game{
 
     public Stage stage, aux_stage;
     private ActualGame game;
-    private MusicInterface musicInterface;
+    private boolean isSet;
+    private InformationText informationText;
 
     private SpriteBatch fontBatch;
     private BitmapFont font;
@@ -47,7 +48,7 @@ public class PlayScreen extends Game{
 
     @Override
     public void create(){
-
+        isSet = false;
         state = 0;
 
         stage = new Stage(new ScreenViewport());
@@ -76,6 +77,7 @@ public class PlayScreen extends Game{
         chooseBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                isSet = false;
                 musicInterface.showPicker();
             }
         });
@@ -116,18 +118,18 @@ public class PlayScreen extends Game{
         {
             case 0:
                 aux_stage = stage;
+                if(musicInterface.isReady() && !isSet){
+                    playBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("play.png"))));
+                    isSet = true;
+                }
 
                 fontBatch.begin();
                 font.draw(fontBatch,"Best Score: " + strScore,width - width/3,height - height/3);
                 fontBatch.end();
 
+                //informationText.render();
                 break;
             case 1:
-                if(musicInterface.isReady()) {
-                    playBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("play.png"))));
-                    musicInterface.SetupRun();
-                }
-
                 game.render(batch);
                 aux_stage = game.stage;
 
