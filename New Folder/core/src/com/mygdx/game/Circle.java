@@ -15,11 +15,11 @@ public class Circle {
     static private boolean projectionMatrixSet;
 
     private Color color;
-    private float approachRate;
     private int circleSize;
+    private int x;
     public int getX() {return x;}
     public int getY() {return y;}
-    private int x, y;
+    private int y;
     private int score;
     public boolean wasClicked;
 
@@ -59,7 +59,6 @@ public class Circle {
         this.x = x;
         this.y = y;
         this.circleSize = circleSize;
-        this.approachRate = approachRate;
         this.color = color;
     }
 
@@ -108,7 +107,7 @@ public class Circle {
         }
     }
 
-    public void CheckIfClicked(int xInput, int yInput, double timeWasClicked, double diff)
+    public boolean CheckIfClicked(int xInput, int yInput, double timeWasClicked, double diff)
     {
         yInput = Gdx.graphics.getHeight() - yInput;
         if (Math.abs(Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2))) < circleSize)
@@ -116,16 +115,19 @@ public class Circle {
             isActive = false;
 
             double playerTime = (clickTime + diff / 1.85) - timeWasClicked;
-            if (playerTime <= 0.2 && playerTime >= -0.2)
+            if (playerTime <= 0.15 && playerTime >= -0.15)
                 score = 300;
-            else if (playerTime <= 0.4)
+            else if (playerTime <= 0.3)
                 score = 100;
-            else if (playerTime <= 0.6)
+            else if (playerTime <= 0.5)
                 score = 50;
-            else if (playerTime <= 0.8)
+            else if (playerTime <= 0.7)
                 score = 0;
 
             wasClicked = true;
+
+            return true;
         }
+        return false;
     }
 }

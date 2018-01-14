@@ -34,7 +34,7 @@ public class FlowGenerator {
     private int numCombo;
     private CharSequence num;
 
-    private float timeBetweenJump = 0.1f;
+    private float timeBetweenJump = 0.3f;
 
     public FlowGenerator(int distance, int circleSize, float approachRate)
     {
@@ -52,7 +52,7 @@ public class FlowGenerator {
         indexColor = 0;
         currentColor = colors.get(indexColor);
         colorCycle = 1;
-        numCombo = 1;
+        numCombo = 0;
         num = Integer.toString(numCombo);
     }
 
@@ -61,12 +61,18 @@ public class FlowGenerator {
         colorCycle++;
         if (colorCycle > 4)
             CycleColors();
-        num = Integer.toString(numCombo);
+
         numCombo++;
+        num = Integer.toString(numCombo);
 
         this.time = time;
         circles = new ArrayList<Circle>();
-        int opt = random.nextInt(1);
+        int r = random.nextInt(101);
+        int opt = 0;
+        if (r > 90)
+            opt = 1;
+        else if (r > 80)
+            opt = 2;
         switch (opt)
         {
             case 0:
@@ -76,8 +82,7 @@ public class FlowGenerator {
                 TripleJump(circles);
                 break;
             case 2:
-                break;
-            case 3:
+                DoubleStream(circles);
                 break;
         }
 
@@ -86,34 +91,43 @@ public class FlowGenerator {
 
     private void SingleCircle(ArrayList<Circle> combo)
     {
-        Position pos = CalculatePosition();
+        Position pos = CalculatePosition(distance);
         combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
     }
 
     private void TripleJump(ArrayList<Circle> combo)
     {
-        Position pos = CalculatePosition();
+        Position pos = CalculatePosition(distance);
         combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
-        pos = CalculatePosition();
+        numCombo++;
+        num = Integer.toString(numCombo);
+        pos = CalculatePosition(distance);
         combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
-        pos = CalculatePosition();
+        numCombo++;
+        num = Integer.toString(numCombo);
+        pos = CalculatePosition(distance);
         combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
     }
 
-    private void TripleStream(ArrayList<Circle> combo)
+    private void DoubleStream(ArrayList<Circle> combo)
     {
-        Position pos = CalculatePosition();
+        Position pos = CalculatePosition(distance);
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        numCombo++;
+        num = Integer.toString(numCombo);
+        pos = CalculatePosition((int)(distance / 10.0));
+        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
     }
 
-    private Position CalculatePosition()
+    private Position CalculatePosition(int distance)
     {
         Position pos = new Position();
         do
         {
-            double angle = random.nextInt(359);
+            double angle = random.nextInt(360);
             pos.X = (int)(lastX + distance * (float)Math.cos(angle));
             pos.Y = (int)(lastY + distance * -(float)(Math.sin(angle)));
-        } while ((pos.X > Gdx.graphics.getWidth() - circleSize || pos.X < 0) || (pos.Y > Gdx.graphics.getHeight() - circleSize || pos.Y < 0));
+        } while ((pos.X > Gdx.graphics.getWidth() - circleSize || pos.X < 0 + circleSize) || (pos.Y > Gdx.graphics.getHeight() - circleSize || pos.Y < 0 + circleSize));
 
         lastX = pos.X;
         lastY = pos.Y;
@@ -127,6 +141,6 @@ public class FlowGenerator {
             indexColor = 0;
         currentColor = colors.get(indexColor);
         colorCycle = 1;
-        numCombo = 1;
+        numCombo = 0;
     }
 }

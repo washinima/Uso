@@ -104,7 +104,7 @@ public class MusicAPI
                         }
                     }
                 },
-                30, 1);
+                28, -1.5);
         dispatcher.addAudioProcessor(a);
 
 //        BufferedWriter writer = null;
