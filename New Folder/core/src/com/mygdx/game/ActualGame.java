@@ -32,7 +32,7 @@ public class ActualGame
     int score;
     int combo;
 
-    float diff = 1f;
+    double diff = 1.0;
     private String source;
 
     private int width, height;
@@ -95,13 +95,10 @@ public class ActualGame
             if (compareTime(circle, music.getPosition())) {
                 circle.update();
                 if (Gdx.input.isTouched(0)) {
-                    circle.CheckIfClicked(Gdx.input.getX(0), Gdx.input.getY(0), music.getPosition());
+                    circle.CheckIfClicked(Gdx.input.getX(0), Gdx.input.getY(0), music.getPosition(), diff);
                 }
                 if (Gdx.input.isTouched(1)) {
-                    circle.CheckIfClicked(Gdx.input.getX(1), Gdx.input.getY(1), music.getPosition());
-                }
-                if (Gdx.input.isTouched(2)) {
-                    circle.CheckIfClicked(Gdx.input.getX(2), Gdx.input.getY(2), music.getPosition());
+                    circle.CheckIfClicked(Gdx.input.getX(1), Gdx.input.getY(1), music.getPosition(), diff);
                 }
                 if (circle.wasClicked) {
                     combo++;
@@ -124,7 +121,7 @@ public class ActualGame
 
     private boolean compareTime(Circle circle, float musicTime)
     {
-        if(circle.getTime() >= musicTime - diff && circle.getTime() < musicTime && circle.IsActive())
+        if(circle.getTime() >= musicTime - diff && circle.getTime() < musicTime + diff / 2 && circle.IsActive())
         {
             return true;
         }

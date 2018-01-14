@@ -8,7 +8,11 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Environment;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.ArrayList;
 import android.media.*;
@@ -46,6 +50,27 @@ public class MusicAPI
 
     public void Start()
     {
+//        if (false/*file exists*/)
+//        {
+//            BufferedReader br = null;
+//            try {
+//                FileReader r = new FileReader("file.txt");
+//                StringBuilder sb = new StringBuilder();
+//                String line = br.readLine();
+//
+//                while (line != null) {
+//                    sb.append(line);
+//                    sb.append(System.lineSeparator());
+//                    line = br.readLine();
+//                }
+//                String everything = sb.toString();
+//            } catch (Exception e) { }
+//            finally {
+//                try {br.close();} catch (Exception e) {}
+//            }
+//        }
+
+
         list = new ArrayList<Circle>();
         generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f), 1);
 
@@ -79,8 +104,26 @@ public class MusicAPI
                         }
                     }
                 },
-                50, 4);
+                30, 1);
         dispatcher.addAudioProcessor(a);
+
+//        BufferedWriter writer = null;
+//        try
+//        {
+//            String info;
+//            File file = new File(/*file path*/);
+//            writer = new BufferedWriter(new FileWriter(file));
+//            /*time,x,y*/
+//            for (Circle c : list)
+//            {
+//                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
+//            }
+//        } catch (Exception e) {}
+//        finally {
+//            try {
+//                writer.close();
+//            } catch (Exception e) {}
+//        }
 
         thread = new Thread(dispatcher);
         thread.run();

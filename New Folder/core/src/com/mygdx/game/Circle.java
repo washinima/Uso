@@ -17,6 +17,8 @@ public class Circle {
     private Color color;
     private float approachRate;
     private int circleSize;
+    public int getX() {return x;}
+    public int getY() {return y;}
     private int x, y;
     private int score;
     public boolean wasClicked;
@@ -106,19 +108,19 @@ public class Circle {
         }
     }
 
-    public void CheckIfClicked(int xInput, int yInput, double timeWasClicked)
+    public void CheckIfClicked(int xInput, int yInput, double timeWasClicked, double diff)
     {
         yInput = Gdx.graphics.getHeight() - yInput;
         if (Math.abs(Math.sqrt(Math.pow(x - xInput, 2) + Math.pow(y - yInput, 2))) < circleSize)
         /*if (xInput < (x + circleSize) && xInput > (x - circleSize) && yInput < (y + circleSize) && yInput > (y - circleSize))*/ {
             isActive = false;
 
-            double playerTime = clickTime - timeWasClicked;
-            if (playerTime <= 0.1)
+            double playerTime = (clickTime + diff / 1.85) - timeWasClicked;
+            if (playerTime <= 0.2 && playerTime >= -0.2)
                 score = 300;
-            else if (playerTime <= 0.2)
-                score = 100;
             else if (playerTime <= 0.4)
+                score = 100;
+            else if (playerTime <= 0.6)
                 score = 50;
             else if (playerTime <= 0.8)
                 score = 0;
