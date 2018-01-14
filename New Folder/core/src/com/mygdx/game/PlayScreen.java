@@ -34,7 +34,7 @@ public class PlayScreen extends Game{
         this.width = width;
         this.height = height;
 
-        game = new ActualGame(width, height);
+        game = new ActualGame(width, height, musicInterface);
 
         this.musicInterface = musicInterface;
 
@@ -52,11 +52,14 @@ public class PlayScreen extends Game{
         ////Cria os butoes e a informaçao que quiseres neste stage Marcio
         playBtn = new Image(new Texture("play.png"));
         playBtn.setSize(playBtn.getWidth()/3,playBtn.getHeight()/3);
-        playBtn.setPosition(width - playBtn.getWidth(),height - playBtn.getHeight());
+        playBtn.setPosition(0,0);
         playBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                state = 1;
+                if(musicInterface.isReady())
+                    musicInterface.SetupRun();
+                    game.create();
             }
         });
 
@@ -66,7 +69,7 @@ public class PlayScreen extends Game{
         chooseBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                musicInterface.showPicker();
             }
         });
         // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
@@ -79,7 +82,8 @@ public class PlayScreen extends Game{
         // Um butao back para voltar ao menu screen.
 
         stage.addActor(background);
-
+        stage.addActor(chooseBtn);
+        stage.addActor(playBtn);
 
         aux_stage = stage;
     }
@@ -97,7 +101,12 @@ public class PlayScreen extends Game{
                 aux_stage = stage;
                 break;
             case 1:
-                game.render();
+                if(musicInterface.isReady())
+                {
+                    musicInterface.SetupRun();
+                }
+
+                game.render(batch);
                 aux_stage = game.stage;
                 break;
         }

@@ -40,9 +40,7 @@ public class MenuScreen extends Game{
         stage = new Stage(new ScreenViewport());
 
         playScreen = new PlayScreen(width,height, music);
-        playScreen.create();
         optionsScreen = new OptionsScreen(width,height);
-        optionsScreen.create();
 
         btnSelected = -1;
         userOnline = false;
@@ -60,7 +58,9 @@ public class MenuScreen extends Game{
         playBtn.addListener(new ClickListener(){
 
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y)
+            {
+                playScreen.create();
                 btnSelected = 0;
             }
         });
@@ -71,7 +71,9 @@ public class MenuScreen extends Game{
         optionsBtn.addListener(new ClickListener(){
 
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y)
+            {
+                optionsScreen.create();
                 btnSelected = 1;
             }
         });
@@ -118,13 +120,17 @@ public class MenuScreen extends Game{
     public void render(SpriteBatch batch){
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
+        Gdx.input.setInputProcessor(aux_stage);
+        aux_stage.act();
+        aux_stage.draw();
+
         switch (btnSelected){
             case -1:
                 aux_stage = stage;
                 break;
             case 0:
-                //playScreen.render(batch);
                 aux_stage = playScreen.getStage();
+                playScreen.render(batch);
                 break;
             case 1:
                 aux_stage = optionsScreen.getStage();
@@ -138,9 +144,7 @@ public class MenuScreen extends Game{
                 Gdx.app.exit();
                 break;
         }
-        Gdx.input.setInputProcessor(aux_stage);
-        aux_stage.act();
-        aux_stage.draw();
+
     }
 
     @Override

@@ -37,7 +37,7 @@ public class MyGdxGame extends ApplicationAdapter {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 0;
+        this.stateManager = 3;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
         menu = new MenuScreen(WIDTH,HEIGHT, m);
         menu.create();
 
-       m.showPicker();
+       //m.showPicker();
     }
 
     @Override
