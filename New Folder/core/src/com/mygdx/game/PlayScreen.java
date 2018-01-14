@@ -2,10 +2,15 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 
 /**
  * Created by Marcio Rocha on 13/01/2018.
@@ -16,7 +21,7 @@ public class PlayScreen extends Game{
     public Stage stage, aux_stage;
     private ActualGame game;
 
-    private Image background;
+    private Image background, playBtn, chooseBtn;
 
     private MusicInterface musicInterface;
 
@@ -29,7 +34,7 @@ public class PlayScreen extends Game{
         this.width = width;
         this.height = height;
 
-        //game = new ActualGame(width, height, musicInterface.musicPath());
+        game = new ActualGame(width, height);
 
         this.musicInterface = musicInterface;
 
@@ -45,6 +50,25 @@ public class PlayScreen extends Game{
         background.setSize(width,height);
 
         ////Cria os butoes e a informaçao que quiseres neste stage Marcio
+        playBtn = new Image(new Texture("play.png"));
+        playBtn.setSize(playBtn.getWidth()/3,playBtn.getHeight()/3);
+        playBtn.setPosition(width - playBtn.getWidth(),height - playBtn.getHeight());
+        playBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        chooseBtn = new Image(new Texture("play.png"));
+        chooseBtn.setSize(chooseBtn.getWidth()/3,chooseBtn.getHeight()/3);
+        chooseBtn.setPosition(width - chooseBtn.getWidth(),chooseBtn.getHeight());
+        chooseBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
         // Nao ponhas a cena do input que ja esta feito noutra classe. Faz so o design.
 
         // Funçao para chamar o music picker.
@@ -73,7 +97,7 @@ public class PlayScreen extends Game{
                 aux_stage = stage;
                 break;
             case 1:
-                //game.render(batch);
+                game.render();
                 aux_stage = game.stage;
                 break;
         }
