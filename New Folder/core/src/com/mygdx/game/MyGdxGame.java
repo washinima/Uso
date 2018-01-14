@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
@@ -11,11 +12,17 @@ import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
+    SpriteBatch fontBatch;
     boolean playingMusic;
     int stateManager;
     Music music;
     Random generator;
     ArrayList<Circle> map;
+    private BitmapFont font;
+    private CharSequence strScore;
+    private CharSequence strCombo;
+    int score;
+    int combo;
 
     float diff = 1f;
 
@@ -30,13 +37,17 @@ public class MyGdxGame extends ApplicationAdapter {
         generator = new Random();
         this.m = musicInterface;
         this.music = null;
-        this.stateManager = 3;
-
+        this.stateManager = 0;
     }
 
     @Override
     public void create () {
         batch = new SpriteBatch();
+        fontBatch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().scale(10);
+        strScore = Integer.toString(score);
+        strCombo = Integer.toString(combo);
 
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
@@ -44,7 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
         menu = new MenuScreen(WIDTH,HEIGHT, m);
         menu.create();
 
-       //m.showPicker();
+       m.showPicker();
     }
 
     @Override
@@ -63,21 +74,25 @@ public class MyGdxGame extends ApplicationAdapter {
                 }
                 break;
             case 1:
+                score = 0;
+                combo = 0;
+                stateManager = 2;
+                break;
+            case 2:
                 Gdx.gl.glClearColor(0.1f, 0.2f, 0.7f, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+                strScore = Integer.toString(score);
+                strCombo = Integer.toString(combo);
 
                 batch.begin();
                 ActualGame();
                 batch.end();
                 break;
-            case 2:
-                break;
             case 3:
                 menu.render(batch);
                 break;
         }
-
     }
 
     public void CreateMap()
@@ -116,45 +131,49 @@ public class MyGdxGame extends ApplicationAdapter {
             playingMusic = true;
         }
 
-        for(int i = map.size() - 1; i >= 0; i--)
-        {
+        fontBatch.begin();
+        font.draw(fontBatch, strScore, 200, 200);
+        font.draw(fontBatch, strCombo, 200, 500);
+        fontBatch.end();
 
-            float pos = music.getPosition();
-            if (compareTime((float)map.get(i).getTime(), pos))
-            {
-                map.get(i).update();
-                if (Gdx.input.isTouched(0))
-                {
-                    map.get(i).CheckIfClicked(Gdx.input.getX(0), Gdx.input.getY(0));
+        for(int i = map.size() - 1; i >= 0; i--) {
+            Circle circle = map.get(i);
+            if (compareTime(circle, music.getPosition())) {
+                circle.update();
+                if (Gdx.input.isTouched(0)) {
+                    circle.CheckIfClicked(Gdx.input.getX(0), Gdx.input.getY(0), music.getPosition());
                 }
-                if (Gdx.input.isTouched(1))
-                {
-                    map.get(i).CheckIfClicked(Gdx.input.getX(1), Gdx.input.getY(1));
+                if (Gdx.input.isTouched(1)) {
+                    circle.CheckIfClicked(Gdx.input.getX(1), Gdx.input.getY(1), music.getPosition());
                 }
-                if (Gdx.input.isTouched(2))
-                {
-                    map.get(i).CheckIfClicked(Gdx.input.getX(2), Gdx.input.getY(2));
+                if (Gdx.input.isTouched(2)) {
+                    circle.CheckIfClicked(Gdx.input.getX(2), Gdx.input.getY(2), music.getPosition());
                 }
-                if( map.get(i).getTime() > music.getPosition())
-                {
-                    map.get(i).SetActive(false);
+                if (circle.wasClicked) {
+                    combo++;
+                    if (circle.getScore() == 0)
+                        combo = 0;
+                    else
+                        score += circle.getScore() * combo;
                 }
-                if(!map.get(i).IsActive())
-                {
-                    map.remove(i);
-                }
-                map.get(i).draw(batch);
+                circle.draw(batch);
+            }
+
+            if (circle.getTime() < music.getPosition() - diff && circle.IsActive() && !circle.wasClicked) {
+                map.remove(i);
+                circle.SetActive(false);
+                circle.setScore(0);
+                combo = 0;
             }
         }
     }
 
-    private boolean compareTime(float hitTime, float musicTime)
+    private boolean compareTime(Circle circle, float musicTime)
     {
-        if( hitTime >= musicTime - diff && hitTime < musicTime)
+        if(circle.getTime() >= musicTime - diff && circle.getTime() < musicTime && circle.IsActive())
         {
             return true;
         }
-
         return false;
     }
 
