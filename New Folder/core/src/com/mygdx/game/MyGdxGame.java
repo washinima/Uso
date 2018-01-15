@@ -9,12 +9,15 @@ public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     Music music;
     private final MusicInterface m;
+    private final FirebaseInterface f;
 
     private MenuScreen menu;
     public int WIDTH, HEIGHT;
 
-    public MyGdxGame(MusicInterface musicInterface)
+
+    public MyGdxGame(MusicInterface musicInterface, FirebaseInterface firebaseInterface)
     {
+        this.f = firebaseInterface;
         this.m = musicInterface;
         this.music = null;
     }
@@ -26,7 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
-        menu = new MenuScreen(WIDTH,HEIGHT, m);
+        menu = new MenuScreen(WIDTH,HEIGHT, m, f);
         menu.create();
     }
 

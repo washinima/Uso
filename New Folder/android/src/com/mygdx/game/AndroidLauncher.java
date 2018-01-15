@@ -18,8 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class AndroidLauncher extends AndroidApplication {
 
     String music;
-    boolean ready;
-    private ActionSolver solver;
+    boolean ready_music;
+
+    boolean ready_fire;
 
     public class AndroidMusic implements MusicInterface {
         private final MusicAPI api;
@@ -28,7 +29,8 @@ public class AndroidLauncher extends AndroidApplication {
         public AndroidMusic()
         {
             api = new MusicAPI();
-            ready = false;
+            ready_music = false;
+            ready_fire = false;
             music = null;
         }
 
@@ -39,9 +41,9 @@ public class AndroidLauncher extends AndroidApplication {
 
         public void SetupRun() {
             api.Setup(getApplicationContext(), music);
-            api.Start();
+            api.Start(getApplicationContext());
 
-            ready = false;
+            ready_music = false;
         }
 
         public boolean Over()
@@ -58,7 +60,7 @@ public class AndroidLauncher extends AndroidApplication {
             );
         }
 
-        public boolean isReady() {return ready;}
+        public boolean isReady() {return ready_music;}
 
         public String musicPath() {return music;}
 
@@ -69,15 +71,37 @@ public class AndroidLauncher extends AndroidApplication {
         }
     }
 
-    public class LibgdxFirebase {
+    public class LibgdxFirebase implements FirebaseInterface{
         private FirebaseAuth mAuth;
+        private FirebaseAPI api;
 
         public LibgdxFirebase()
         {
             mAuth = FirebaseAuth.getInstance();
+
+            api = new FirebaseAPI(mAuth);
         }
 
-        //public void
+        public void updateScore(int score)
+        {
+            api.updateScore(score);
+        }
+
+        public boolean isReady() {return ready_fire;}
+
+        public void setReady(boolean ready) { ready_fire = ready;}
+
+        public void FirebaseLogin()
+        {
+            Intent i = new Intent(getApplicationContext(), FireBaseLogin.class);
+            startActivityForResult(i, 2);
+        }
+
+        public void ShowLeaderboards()
+        {
+            Intent i = new Intent(getApplicationContext(), ScoresActivity.class);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -87,7 +111,9 @@ public class AndroidLauncher extends AndroidApplication {
 
         AndroidMusic androidMusic = new AndroidMusic();
 
-        initialize(new MyGdxGame(androidMusic), config);
+        LibgdxFirebase firebase = new LibgdxFirebase();
+
+        initialize(new MyGdxGame(androidMusic, firebase), config);
 
     }
 
@@ -112,7 +138,12 @@ public class AndroidLauncher extends AndroidApplication {
             if (resultCode == RESULT_OK) {
                 Uri musicUri = data.getData();
                 music = getRealPathFromUri(getApplicationContext(), musicUri);
-                ready = true;
+                ready_music = true;
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                ready_fire = true;
             }
         }
     }

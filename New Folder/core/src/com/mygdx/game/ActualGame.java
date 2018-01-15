@@ -46,6 +46,8 @@ public class ActualGame
 
     MusicInterface musicInterface;
 
+    FirebaseInterface firebaseInterface;
+
 
     public ActualGame(int width, int height, MusicInterface musicInterface)
     {

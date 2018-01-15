@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-
 /**
  * Created by Marcio on 13/01/2018.
  */
@@ -36,12 +35,17 @@ public class PlayScreen extends Game{
     private int height;
     private boolean leave;
 
-    public PlayScreen(int width, int height, MusicInterface musicInterface) {
+    MusicInterface musicInterface;
+
+    FirebaseInterface firebaseInterface;
+
+    public PlayScreen(int width, int height, MusicInterface musicInterface, FirebaseInterface firebaseInterface) {
         this.width = width;
         this.height = height;
 
         game = new ActualGame(width, height, musicInterface);
         this.musicInterface = musicInterface;
+        this.firebaseInterface = firebaseInterface;
 
         leave = false;
     }
@@ -134,6 +138,8 @@ public class PlayScreen extends Game{
 
                 if(game.endGame)
                 {
+                    firebaseInterface.updateScore(game.score);
+
                     state = 0;
                     game.create();
                 }

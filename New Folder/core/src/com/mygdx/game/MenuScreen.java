@@ -21,18 +21,20 @@ public class MenuScreen extends Game{
 
     private PlayScreen playScreen;
     private OptionsScreen optionsScreen;
-    //private FireBaseLogin fireBaseLogin;
+
     private Stage stage, aux_stage;
     private Image background, logo, playBtn, optionsBtn, exitBtn, userBtn;
     private int width, height, btnSelected;
     private boolean userOnline;
 
     MusicInterface music;
+    FirebaseInterface firebase;
 
-    public MenuScreen(int width, int height, MusicInterface musicInterface) {
+    public MenuScreen(int width, int height, MusicInterface musicInterface, FirebaseInterface f) {
         this.width = width;
         this.height = height;
 
+        this.firebase = f;
         this.music = musicInterface;
     }
 
@@ -40,7 +42,7 @@ public class MenuScreen extends Game{
     public void create() {
         stage = new Stage(new ScreenViewport());
 
-        playScreen = new PlayScreen(width,height, music);
+        playScreen = new PlayScreen(width,height, music, firebase);
         optionsScreen = new OptionsScreen(width,height);
 
         btnSelected = -1;
@@ -96,15 +98,14 @@ public class MenuScreen extends Game{
         userBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(userOnline == false) {
+                if( !firebase.isReady()) {
 
-                    btnSelected = 3;
                     userBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("user_on.png"))));
-                    userOnline= true;
+                    firebase.FirebaseLogin();
                 }
                 else {
+                    firebase.setReady(false);
                     userBtn.setDrawable(new SpriteDrawable(new Sprite(new Texture("user.png"))));
-                    userOnline = false;
                 }
             }
         });

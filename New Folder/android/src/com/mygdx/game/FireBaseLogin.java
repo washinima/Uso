@@ -16,9 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FireBaseLogin extends Activity {
 
+
+    FirebaseAPI api;
     EditText editTextEmail;
     EditText editTextPassword;
     EditText editTextPasswordRepeat;
@@ -61,6 +64,8 @@ public class FireBaseLogin extends Activity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+
+        api = new FirebaseAPI(mAuth);
     }
 
     void attempLogin(){
@@ -79,6 +84,9 @@ public class FireBaseLogin extends Activity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+
+                                api.addUserSetScore();
+
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
