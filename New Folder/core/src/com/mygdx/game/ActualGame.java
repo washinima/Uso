@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Whisp on 13/01/2018.

@@ -7,8 +7,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.Inet4Address;
-
 /**
  * Created by Whisp on 14/01/2018.
  */
