@@ -184,7 +184,7 @@ public class ActualGame
         return false;
     }
 
-    private void dispose()
+    public void dispose()
     {
         map.clear();
         music.dispose();

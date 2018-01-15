@@ -41,7 +41,7 @@ public class Circle {
 
     public double getTime(){ return clickTime; }
 
-    public Circle(double time, int x, int y, int circleSize, Color color, CharSequence num)
+    public Circle(double time, int x, int y, int circleSize, Color color, CharSequence num, SpriteBatch batch)
     {
         shapeRenderer = new ShapeRenderer();
         projectionMatrixSet = false;
@@ -54,7 +54,7 @@ public class Circle {
         score = 0;
         this.num = num;
         str = num;
-        batch = new SpriteBatch();
+        this.batch = batch;
         font = new BitmapFont();
         font.getData().scale(circleSize / 40.0f);
         wasClicked = false;
