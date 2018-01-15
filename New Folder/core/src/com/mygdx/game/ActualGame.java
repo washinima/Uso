@@ -180,5 +180,4 @@ public class ActualGame
             return true;
         return false;
     }
-
 }

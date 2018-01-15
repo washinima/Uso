@@ -65,12 +65,26 @@ public class MusicAPI
 
             if(file.isFile())
             {
-                ReadFile(file);
+                list = new ArrayList<Circle>();
+                ArrayList<String[]> circleStuff;
+                circleStuff = ReadFile(file);
+
+                for (String[] circleInfo : circleStuff)
+                {
+                    /*time,x,y,circleSize,color,num*/
+                    Circle circle = new Circle(Double.parseDouble(circleInfo[0]),
+                            Integer.getInteger(circleInfo[1]),
+                            Integer.getInteger(circleInfo[2]),
+                            (int)(Gdx.graphics.getHeight() * 0.10f),
+                            new Color(Integer.getInteger(circleInfo[3]), Integer.getInteger(circleInfo[4]), Integer.getInteger(circleInfo[5]), 1),
+                            circleInfo[6]);
+                    list.add(circle);
+                }
             }
             else
             {
                 list = new ArrayList<Circle>();
-                generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f), 1);
+                generator = new FlowGenerator((int)(Gdx.graphics.getHeight() * 0.35f), (int)(Gdx.graphics.getHeight() * 0.10f));
 
                 PipedAudioStream stream = new PipedAudioStream(directory);
 
@@ -136,7 +150,13 @@ public class MusicAPI
             /*time,x,y*/
             for (Circle c : list)
             {
-                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
+                writer.write(c.getTime() + "," +
+                        c.getX() + "," +
+                        c.getY() + "," +
+                        c.getColor().r + "," +
+                        c.getColor().g + "," +
+                        c.getColor().b + "," +
+                        c.getNum() + "\n");
             }
         } catch (Exception e) {}
         finally {
@@ -146,25 +166,26 @@ public class MusicAPI
         }
     }
 
-    public void ReadFile(File path)
+    public ArrayList<String[]> ReadFile(File path)
     {
         BufferedReader br = null;
         Log.d("Read", "2");
-        try {
+        ArrayList<String[]> stuff;
+        stuff = new ArrayList<String[]>();
+
+        try
+        {
             FileReader r = new FileReader(path);
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
-
             while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-
                 line = br.readLine();
+                stuff.add(line.split(","));
             }
-            String everything = sb.toString();
         } catch (Exception e) { }
         finally {
             try {br.close();} catch (Exception e) {}
         }
+        return stuff;
     }
 }

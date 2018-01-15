@@ -15,6 +15,9 @@ public class Circle {
     static private boolean projectionMatrixSet;
 
     private Color color;
+    public Color getColor() {return color;}
+    public CharSequence getNum() {return num;}
+    private CharSequence num;
     private int circleSize;
     private int x;
     public int getX() {return x;}
@@ -22,7 +25,6 @@ public class Circle {
     private int y;
     private int score;
     public boolean wasClicked;
-
     public int getScore() {return score;}
     public void setScore(int score) {this.score = score;}
     public boolean IsActive() {return isActive;}
@@ -39,17 +41,18 @@ public class Circle {
 
     public double getTime(){ return clickTime; }
 
-    public Circle(double time, int x, int y, int circleSize, float approachRate, Color color, CharSequence num)
+    public Circle(double time, int x, int y, int circleSize, Color color, CharSequence num)
     {
         shapeRenderer = new ShapeRenderer();
         projectionMatrixSet = false;
         isActive = true;
         initHaloSize = 4.0f * circleSize;
-        initHaloTime = 1.0f / approachRate;
+        initHaloTime = 1.0f;
         haloTime = initHaloTime;
         haloSize = initHaloSize;
         clickTime = time;
         score = 0;
+        this.num = num;
         str = num;
         batch = new SpriteBatch();
         font = new BitmapFont();

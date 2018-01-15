@@ -25,7 +25,6 @@ public class FlowGenerator {
     private int distance;
     private int lastX, lastY;
     private double time;
-    private float approachRate;
     private int circleSize;
     private ArrayList<Color> colors;
     private Color currentColor;
@@ -36,10 +35,9 @@ public class FlowGenerator {
 
     private float timeBetweenJump = 0.3f;
 
-    public FlowGenerator(int distance, int circleSize, float approachRate)
+    public FlowGenerator(int distance, int circleSize)
     {
         this.circleSize = circleSize;
-        this.approachRate = approachRate;
         this.distance = distance;
         random = new Random();
         lastX = 0;
@@ -92,31 +90,31 @@ public class FlowGenerator {
     private void SingleCircle(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition(distance);
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, currentColor, num));
     }
 
     private void TripleJump(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition(distance);
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, currentColor, num));
         numCombo++;
         num = Integer.toString(numCombo);
         pos = CalculatePosition(distance);
-        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, currentColor, num));
         numCombo++;
         num = Integer.toString(numCombo);
         pos = CalculatePosition(distance);
-        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time + timeBetweenJump * 2, pos.X, pos.Y, circleSize, currentColor, num));
     }
 
     private void DoubleStream(ArrayList<Circle> combo)
     {
         Position pos = CalculatePosition(distance);
-        combo.add(new Circle(time, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time, pos.X, pos.Y, circleSize, currentColor, num));
         numCombo++;
         num = Integer.toString(numCombo);
         pos = CalculatePosition((int)(distance / 10.0));
-        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, approachRate, currentColor, num));
+        combo.add(new Circle(time + timeBetweenJump, pos.X, pos.Y, circleSize, currentColor, num));
     }
 
     private Position CalculatePosition(int distance)
