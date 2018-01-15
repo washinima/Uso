@@ -27,8 +27,8 @@ public class MenuScreen extends Game{
     private int width, height, btnSelected;
     private boolean userOnline;
 
-    MusicInterface music;
-    FirebaseInterface firebase;
+    private MusicInterface music;
+    private FirebaseInterface firebase;
 
     public MenuScreen(int width, int height, MusicInterface musicInterface, FirebaseInterface f) {
         this.width = width;

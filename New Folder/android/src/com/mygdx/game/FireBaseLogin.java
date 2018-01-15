@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,31 +28,43 @@ public class FireBaseLogin extends Activity {
     EditText editTextPasswordRepeat;
     Button buttonLogin;
     CheckBox checkBoxRegister;
+    TextView textEmail;
+    TextView textPassword;
+    TextView textConfirm;
 
     private FirebaseAuth mAuth;
     private String TAG = "TestApp";
+    private String LOGINT = "LOGIN";
+    private String REGISTERT = "CREATE MY ACCOUNT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_base_login);
 
+        textEmail               = findViewById(R.id.TextEmail             );
         editTextEmail           = findViewById(R.id.editTextEmail         );
+        textPassword            = findViewById(R.id.TextPassword          );
         editTextPassword        = findViewById(R.id.editTextPassword      );
+        textConfirm             = findViewById(R.id.TextConfirm           );
         editTextPasswordRepeat  = findViewById(R.id.editTextPasswordRepeat);
-        buttonLogin             = findViewById(R.id.buttonLogin           );
         checkBoxRegister        = findViewById(R.id.checkBoxRegister      );
+        buttonLogin             = findViewById(R.id.buttonLogin           );
 
         editTextPasswordRepeat.setVisibility(View.GONE);
+        textConfirm.setVisibility(View.GONE);
 
         checkBoxRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkBoxRegister.isChecked()){
                     editTextPasswordRepeat.setVisibility(View.VISIBLE);
+                    textConfirm.setVisibility(View.VISIBLE);
+                    buttonLogin.setText(REGISTERT);
                 }else{
-
                     editTextPasswordRepeat.setVisibility(View.GONE);
+                    textConfirm.setVisibility(View.GONE);
+                    buttonLogin.setText(LOGINT);
                 }
             }
         });
