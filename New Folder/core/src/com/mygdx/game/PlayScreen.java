@@ -23,7 +23,7 @@ public class PlayScreen extends Game{
     public Stage stage, aux_stage;
     private ActualGame game;
     private boolean isSet;
-    private InformationText informationText;
+    private MusicInterface musicInterface;
 
     private SpriteBatch fontBatch;
     private BitmapFont font;
@@ -127,7 +127,6 @@ public class PlayScreen extends Game{
                 font.draw(fontBatch,"Best Score: " + strScore,width - width/3,height - height/3);
                 fontBatch.end();
 
-                //informationText.render();
                 break;
             case 1:
                 game.render(batch);

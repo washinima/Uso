@@ -21,7 +21,7 @@ public class MenuScreen extends Game{
 
     private PlayScreen playScreen;
     private OptionsScreen optionsScreen;
-    private FireBaseLogin fireBaseLogin;
+    //private FireBaseLogin fireBaseLogin;
     private Stage stage, aux_stage;
     private Image background, logo, playBtn, optionsBtn, exitBtn, userBtn;
     private int width, height, btnSelected;

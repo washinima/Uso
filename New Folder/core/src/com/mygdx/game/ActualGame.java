@@ -59,7 +59,7 @@ public class ActualGame
         endGame = false;
         stage = new Stage();
 
-        background = new Image(new Texture("menulist_background.png"));
+        background = new Image(new Texture("game_background.png"));
         background.setSize(width,height);
 
         stage.addActor(background);
