@@ -102,6 +102,10 @@ public class AndroidLauncher extends AndroidApplication {
             Intent i = new Intent(getApplicationContext(), ScoresActivity.class);
             startActivity(i);
         }
+
+        public boolean isOnline(){
+            return api.isOnline();
+        }
     }
 
     @Override

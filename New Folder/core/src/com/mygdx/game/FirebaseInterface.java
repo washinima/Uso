@@ -11,4 +11,6 @@ public interface FirebaseInterface
     void updateScore(int score);
     boolean isReady();
     void setReady(boolean ready);
+
+    boolean isOnline();
 }

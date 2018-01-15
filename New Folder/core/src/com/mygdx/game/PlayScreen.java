@@ -135,7 +135,11 @@ public class PlayScreen extends Game{
 
                 if(game.endGame)
                 {
-                    firebaseInterface.updateScore(game.score);
+                    if(firebaseInterface.isOnline())
+                        firebaseInterface.updateScore(game.score);
+
+                    state = 0;
+                    game.create();
                 }
                 break;
         }

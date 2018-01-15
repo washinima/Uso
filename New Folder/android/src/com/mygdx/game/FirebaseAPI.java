@@ -38,6 +38,15 @@ public class FirebaseAPI
         ).setValue(score);
     }
 
+    public boolean isOnline()
+    {
+        if( mAuth.getCurrentUser() != null )
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     public void updateScore(int score)
     {
