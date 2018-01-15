@@ -112,8 +112,6 @@ public class FireBaseLogin extends Activity {
 
                                 Toast.makeText(FireBaseLogin.this, "Authentication Success.",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(FireBaseLogin.this,ScoresActivity.class);
-                                startActivity(intent);
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.

@@ -70,7 +70,8 @@ public class ActualGame
 
         map = musicInterface.SendMap();
         source = musicInterface.musicPath();
-
+        score = 0;
+        combo = 0;
         fontBatch = new SpriteBatch();
         font = new BitmapFont();
         font.getData().scale(8);
@@ -181,5 +182,12 @@ public class ActualGame
         if(circle.getTime() >= musicTime - diff && circle.getTime() < musicTime + diff / 3)
             return true;
         return false;
+    }
+
+    private void dispose()
+    {
+        map.clear();
+        music.dispose();
+        background.clear();
     }
 }

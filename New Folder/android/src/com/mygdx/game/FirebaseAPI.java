@@ -50,7 +50,7 @@ public class FirebaseAPI
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                scoreAntigo = (int) dataSnapshot.getValue();
+                scoreAntigo = dataSnapshot.getValue(Integer.class);
             }
 
             @Override

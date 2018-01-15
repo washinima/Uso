@@ -40,8 +40,6 @@ public class PlayScreen extends Game{
     public PlayScreen(int width, int height, MusicInterface musicInterface, FirebaseInterface firebaseInterface) {
         this.width = width;
         this.height = height;
-
-        game = new ActualGame(width, height, musicInterface);
         this.musicInterface = musicInterface;
         this.firebaseInterface = firebaseInterface;
 
@@ -66,6 +64,7 @@ public class PlayScreen extends Game{
                     if(musicInterface.isReady()){
                         state = 1;
                         musicInterface.SetupRun();
+                        game = new ActualGame(width, height, musicInterface);
                         game.create();
                     }
                     //else{ Imprimir texto de ajuda }
@@ -137,9 +136,6 @@ public class PlayScreen extends Game{
                 if(game.endGame)
                 {
                     firebaseInterface.updateScore(game.score);
-
-                    state = 0;
-                    game.create();
                 }
                 break;
         }
