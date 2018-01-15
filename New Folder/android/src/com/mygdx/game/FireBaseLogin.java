@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -42,9 +43,9 @@ public class FireBaseLogin extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_base_login);
 
-        textEmail               = findViewById(R.id.TextEmail             );
-        editTextEmail           = findViewById(R.id.editTextEmail         );
-        textPassword            = findViewById(R.id.TextPassword          );
+        textEmail = findViewById(R.id.TextEmail);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        textPassword = findViewById(R.id.TextPassword);
         editTextPassword        = findViewById(R.id.editTextPassword      );
         textConfirm             = findViewById(R.id.TextConfirm           );
         editTextPasswordRepeat  = findViewById(R.id.editTextPasswordRepeat);
@@ -88,7 +89,6 @@ public class FireBaseLogin extends Activity {
                 Toast.makeText(this, "Passwords do not match!",Toast.LENGTH_LONG).show();
                 return;
             }
-
             mAuth.createUserWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -108,11 +108,8 @@ public class FireBaseLogin extends Activity {
                                         Toast.LENGTH_SHORT).show();
                                 //updateUI(null);
                             }
-
-
                         }
                     });
-
         }else{
             mAuth.signInWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

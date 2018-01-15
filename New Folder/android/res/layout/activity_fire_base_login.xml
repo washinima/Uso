@@ -11,14 +11,14 @@
         android:id="@+id/TextEmail"
         android:layout_width="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="45dp"
         android:text="EMAIL ADRESS"
         android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="45dp"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -26,14 +26,14 @@
         android:id="@+id/TextPassword"
         android:layout_width="wrap_content"
         android:layout_marginTop="3dp"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="45dp"
         android:text="PASSWORD"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_marginStart="150dp"
-        android:layout_width="400dp"
+        android:layout_marginStart="45dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"  />
@@ -41,32 +41,35 @@
     <TextView
         android:id="@+id/TextConfirm"
         android:layout_width="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="3dp"
         android:text="CONFIRM PASSWORD"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/editTextPasswordRepeat"
-        android:layout_marginStart="150dp"
-        android:layout_width="400dp"
+        android:layout_marginStart="45dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         />
 
-    <CheckBox
-        android:id="@+id/checkBoxRegister"
-        android:layout_marginStart="150dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Resgister" />
-
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_marginStart="250dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="100dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="LOGIN"
         />
+
+    <CheckBox
+        android:id="@+id/checkBoxRegister"
+        android:layout_marginStart="150dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Resgister" />
+
+
 </LinearLayout>
