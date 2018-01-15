@@ -34,6 +34,7 @@ public class PlayScreen extends Game{
     private int height;
     private boolean leave;
 
+    MusicInterface musicInterface;
     FirebaseInterface firebaseInterface;
 
     public PlayScreen(int width, int height, MusicInterface musicInterface, FirebaseInterface firebaseInterface) {

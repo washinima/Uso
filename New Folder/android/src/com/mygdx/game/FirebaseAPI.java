@@ -25,7 +25,7 @@ public class FirebaseAPI
     {
         scoreAntigo = 0;
         this.mAuth = mAuth;
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference("cm-uso");
     }
 
     public void addUserSetScore()
