@@ -7,6 +7,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.Inet4Address;
+
 /**
  * Created by Whisp on 14/01/2018.
  */
@@ -30,17 +32,21 @@ public class FirebaseAPI
     {
         int score = 0;
         database.child(
-                mAuth.getCurrentUser().getEmail()
+                Integer.toString(
+                    mAuth.getCurrentUser().getEmail().hashCode()
+                )
         ).setValue(score);
     }
 
 
     public void updateScore(int score)
     {
-        String email = mAuth.getCurrentUser().getEmail();
+        String hash = Integer.toString(
+                mAuth.getCurrentUser().getEmail().hashCode()
+        );
 
 
-        database.child(email).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.child(hash).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
@@ -54,6 +60,6 @@ public class FirebaseAPI
         });
 
         int novoScore = scoreAntigo + score;
-        database.child(email).setValue(novoScore);
+        database.child(hash).setValue(novoScore);
     }
 }

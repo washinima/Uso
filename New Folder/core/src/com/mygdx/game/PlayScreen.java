@@ -22,7 +22,6 @@ public class PlayScreen extends Game{
     public Stage stage, aux_stage;
     private ActualGame game;
     private boolean isSet;
-    private MusicInterface musicInterface;
 
     private SpriteBatch fontBatch;
     private BitmapFont font;
