@@ -108,9 +108,6 @@ public class MusicAPI
     {
         PercussionOnsetDetector a = null;
 
-        try
-        {
-            writer = new BufferedWriter(new FileWriter(path));
 
             a = new PercussionOnsetDetector(dispatcher.getFormat().getSampleRate(), bufferSize,
                 new OnsetHandler()
@@ -121,19 +118,10 @@ public class MusicAPI
                         for (Circle c : toAdd)
                         {
                             list.add(c);
-                            try {
-                                writer.write(c.getTime() + "," + c.getX() + "," + c.getY() + "\n");
-                            } catch (Exception e) {}
                         }
                     }
                 },
                 28, -1.5);
-        } catch (Exception e) {}
-        finally {
-            try {
-                writer.close();
-            } catch (Exception e) {}
-        }
         dispatcher.addAudioProcessor(a);
 
         thread = new Thread(dispatcher);
